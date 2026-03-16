@@ -9,13 +9,16 @@ Technologies
 - Python (FastAPI & Langchain)
 - MySQL & PostGreSQL
 - AWS (EC2, Lambda, S3, Cloudwatch, etc)
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=sudorishabh&theme=react-dark)
 
+  <img src="![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=sudorishabh&theme=react-dark)" height="500"/>
+
+<!--
 ![](https://komarev.com/ghpvc/?username=sudorishabh&color=blue)
 
 [![GitHub Streak](https://streak-stats.demolab.com/?user=sudorishabh&theme=radical)](https://git.io/streak-stats)
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=sudorishabh&layout=compact&theme=radical)
+--!>
 <!--
 **joeauyeung/joeauyeung** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
