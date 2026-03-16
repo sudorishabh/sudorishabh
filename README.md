@@ -1,6 +1,6 @@
 ### Hey, I'm Rishabh Negi 👋
 
-I’m a full-stack developer with product design experience.\n
+I’m a full-stack developer with product design experience.<br>
 Passionate about building products that people genuinely enjoy using.
 
 ### Technologies
