@@ -4,7 +4,7 @@ I’m a full-stack developer with product design experience.
 
 Passionate about building products that people genuinely enjoy using.
 
-Technologies
+## Technologies
 - React.js & Next.js
 - Node.js & Express
 - Typescript
