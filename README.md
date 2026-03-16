@@ -9,6 +9,7 @@ Technologies
 - Python (FastAPI & Langchain)
 - MySQL & PostGreSQL
 - AWS (EC2, Lambda, S3, Cloudwatch, etc)
+![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=sudorishabh&theme=react-dark)
 
 <!--
 **joeauyeung/joeauyeung** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
