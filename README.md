@@ -1,15 +1,20 @@
+<div align="center">
+
 ### Hey, I'm Rishabh Negi 👋
 
 I’m a full-stack developer with product design experience.<br>
 Passionate about building products that people genuinely enjoy using.
 
 #### Technologies
-- React.js & Next.js
-- Node.js & Express
-- Typescript
-- Python (FastAPI & Langchain)
-- MySQL & PostGreSQL
-- AWS (EC2, Lambda, S3, Cloudwatch, etc)
+
+React.js & Next.js<br>
+Node.js & Express<br>
+Typescript<br>
+Python (FastAPI & Langchain)<br>
+MySQL & PostgreSQL<br>
+AWS (EC2, Lambda, S3, CloudWatch, etc)
+
+</div>
 
 <img src="https://github-readme-activity-graph.vercel.app/graph?username=sudorishabh&theme=react-dark" height="200" width="100%"/>
 
