@@ -1,7 +1,7 @@
 ### Hey, I'm Rishabh Negi 👋
 
-I’m a full-stack developer with product design experience,
-passionate about building products that people genuinely enjoy using.
+I’m a full-stack developer with product design experience.
+Passionate about building products that people genuinely enjoy using.
 
 Technologies
 - React.js & Next.js
