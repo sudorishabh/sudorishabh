@@ -11,7 +11,7 @@ Passionate about building products that people genuinely enjoy using.
 - MySQL & PostGreSQL
 - AWS (EC2, Lambda, S3, Cloudwatch, etc)
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=sudorishabh&theme=react-dark" height="200"/>
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=sudorishabh&theme=react-dark" height="200" width="700"/>
 
 <!--
 ![](https://komarev.com/ghpvc/?username=sudorishabh&color=blue)
