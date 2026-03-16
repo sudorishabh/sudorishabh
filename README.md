@@ -9,8 +9,6 @@ Passionate about building products that people genuinely enjoy using.
 
 <div align="center">
 
-### Technologies
-
 <img src="https://img.shields.io/badge/React-555555?style=flat-square"/>
 <img src="https://img.shields.io/badge/Next.js-555555?style=flat-square"/>
 <img src="https://img.shields.io/badge/Node.js-555555?style=flat-square"/>
