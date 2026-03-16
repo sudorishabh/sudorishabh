@@ -1,5 +1,29 @@
-## Hi there 👋
+### Hey, I'm Rishabh Negi 👋
 
+I’m a full-stack developer with product design experience, passionate about building products that people genuinely enjoy using.
+
+Technologies
+- React.js & Next.js
+- Node.js & Express
+- Typescript
+- Python (FastAPI & Langchain)
+- MySQL & PostGreSQL
+- AWS (EC2, Lambda, S3, Cloudwatch, etc)
+
+<!--
+**joeauyeung/joeauyeung** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+
+Here are some ideas to get you started:
+
+- 🔭 I’m currently working on ...
+- 🌱 I’m currently learning ...
+- 👯 I’m looking to collaborate on ...
+- 🤔 I’m looking for help with ...
+- 💬 Ask me about ...
+- 📫 How to reach me: ...
+- 😄 Pronouns: ...
+- ⚡ Fun fact: ...
+-->
 <!--
 **sudorishabh/sudorishabh** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
