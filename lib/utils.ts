@@ -5,6 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** Compact, unambiguous date for list views, e.g. "Jun 18, 2024". */
+export function formatShortDate(date: string) {
+  if (!date.includes("T")) {
+    date = `${date}T00:00:00`;
+  }
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 export function formatDate(date: string) {
   const currentDate = new Date().getTime();
   if (!date.includes("T")) {
