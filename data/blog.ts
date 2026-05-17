@@ -214,3 +214,18 @@ export async function getPostsByTag(tagSlug: string): Promise<Post[]> {
     post.metadata.tags.some((tag) => slugify(tag) === tagSlug),
   );
 }
+
+/** The chronologically adjacent posts, for prev/next navigation. */
+export async function getPostNeighbors(
+  slug: string,
+): Promise<{ older: Post | null; newer: Post | null }> {
+  const posts = await getBlogPosts();
+  const index = posts.findIndex((post) => post.slug === slug);
+  if (index === -1) return { older: null, newer: null };
+
+  // posts are sorted newest-first, so the previous index is the newer post.
+  return {
+    newer: index > 0 ? posts[index - 1] : null,
+    older: index < posts.length - 1 ? posts[index + 1] : null,
+  };
+}

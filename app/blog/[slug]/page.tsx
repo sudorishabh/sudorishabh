@@ -1,9 +1,14 @@
-import { getBlogPosts, getPost } from "@/data/blog";
+import BlurFade from "@/components/magicui/blur-fade";
+import { PostNavigation } from "@/components/post-navigation";
+import { TableOfContents } from "@/components/table-of-contents";
+import { getBlogPosts, getPost, getPostNeighbors } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+
+const BLUR_FADE_DELAY = 0.04;
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -66,6 +71,8 @@ export default async function Blog({
     notFound();
   }
 
+  const { older, newer } = await getPostNeighbors(slug);
+
   return (
     <section id="blog">
       <script
@@ -85,25 +92,67 @@ export default async function Blog({
             url: `${DATA.url}/blog/${post.slug}`,
             author: {
               "@type": "Person",
-              name: DATA.name,
+              name: post.metadata.author ?? DATA.name,
             },
           }),
         }}
       />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <Suspense fallback={<p className="h-5" />}>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+
+      <BlurFade delay={BLUR_FADE_DELAY}>
+        <Link
+          href="/blog"
+          className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          &larr; Back to blog
+        </Link>
+      </BlurFade>
+
+      <BlurFade delay={BLUR_FADE_DELAY * 2}>
+        <h1 className="title text-2xl font-medium tracking-tighter text-balance">
+          {post.metadata.title}
+        </h1>
+      </BlurFade>
+
+      <BlurFade delay={BLUR_FADE_DELAY * 3}>
+        <div className="mt-3 mb-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+          <time dateTime={post.metadata.publishedAt}>
             {formatDate(post.metadata.publishedAt)}
-          </p>
-        </Suspense>
-      </div>
-      <article
-        className="prose dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: post.source }}
-      ></article>
+          </time>
+          <span aria-hidden className="text-border">
+            &middot;
+          </span>
+          <span>{post.readingTime} min read</span>
+          {post.metadata.tags.length > 0 && (
+            <>
+              <span aria-hidden className="text-border">
+                &middot;
+              </span>
+              <span className="flex flex-wrap gap-x-2">
+                {post.metadata.tags.map((tag) => (
+                  <span key={tag} className="text-muted-foreground/70">
+                    #{tag}
+                  </span>
+                ))}
+              </span>
+            </>
+          )}
+        </div>
+      </BlurFade>
+
+      {post.toc.length >= 2 && (
+        <BlurFade delay={BLUR_FADE_DELAY * 4}>
+          <TableOfContents items={post.toc} />
+        </BlurFade>
+      )}
+
+      <BlurFade delay={BLUR_FADE_DELAY * 5}>
+        <article
+          className="article-content"
+          dangerouslySetInnerHTML={{ __html: post.source }}
+        />
+      </BlurFade>
+
+      <PostNavigation older={older} newer={newer} />
     </section>
   );
 }
