@@ -36,6 +36,17 @@ export type Post = {
   wordCount: number;
 };
 
+/**
+ * The subset of a post needed to render a list row. Excludes the heavy
+ * rendered `source`/`toc` so list pages don't ship full post HTML to the
+ * client (a full `Post` is assignable to this).
+ */
+export type PostPreview = {
+  slug: string;
+  readingTime: number;
+  metadata: Pick<PostMetadata, "title" | "publishedAt" | "summary" | "tags">;
+};
+
 const POSTS_DIR = path.join(process.cwd(), "content");
 
 /** Turn heading/tag text into a URL-safe slug (mirrors components/mdx.tsx). */

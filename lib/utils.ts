@@ -5,6 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** Shared pill styling for tag chips (links and buttons), highlighted when active. */
+export function tagPillClass(active: boolean) {
+  return cn(
+    "rounded-full border px-3 py-1 text-xs transition-colors",
+    active
+      ? "border-foreground bg-foreground text-background"
+      : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
+  );
+}
+
 /** Compact, unambiguous date for list views, e.g. "Jun 18, 2024". */
 export function formatShortDate(date: string) {
   if (!date.includes("T")) {

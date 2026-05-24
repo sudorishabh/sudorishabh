@@ -1,7 +1,7 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { PostNavigation } from "@/components/post-navigation";
 import { TableOfContents } from "@/components/table-of-contents";
-import { getBlogPosts, getPost, getPostNeighbors } from "@/data/blog";
+import { getBlogPosts, getPost, getPostNeighbors, slugify } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -129,9 +129,13 @@ export default async function Blog({
               </span>
               <span className="flex flex-wrap gap-x-2">
                 {post.metadata.tags.map((tag) => (
-                  <span key={tag} className="text-muted-foreground/70">
+                  <Link
+                    key={tag}
+                    href={`/blog/tags/${slugify(tag)}`}
+                    className="text-muted-foreground/70 transition-colors hover:text-foreground"
+                  >
                     #{tag}
-                  </span>
+                  </Link>
                 ))}
               </span>
             </>

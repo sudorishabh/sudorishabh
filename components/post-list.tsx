@@ -1,5 +1,5 @@
 import BlurFade from "@/components/magicui/blur-fade";
-import type { Post } from "@/data/blog";
+import type { PostPreview } from "@/data/blog";
 import { formatShortDate } from "@/lib/utils";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ export function PostList({
   startDelay = BLUR_FADE_DELAY * 2,
   emptyMessage = "No posts yet — check back soon.",
 }: {
-  posts: Post[];
+  posts: PostPreview[];
   startDelay?: number;
   emptyMessage?: string;
 }) {

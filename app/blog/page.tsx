@@ -1,6 +1,6 @@
 import BlurFade from "@/components/magicui/blur-fade";
-import { PostList } from "@/components/post-list";
-import { getBlogPosts } from "@/data/blog";
+import { FilterablePosts } from "@/components/filterable-posts";
+import { getAllTags, getBlogPosts, type PostPreview } from "@/data/blog";
 
 export const metadata = {
   title: "Blog",
@@ -10,7 +10,19 @@ export const metadata = {
 const BLUR_FADE_DELAY = 0.04;
 
 export default async function BlogPage() {
-  const posts = await getBlogPosts();
+  const [posts, tags] = await Promise.all([getBlogPosts(), getAllTags()]);
+
+  // Strip the heavy rendered source/toc before handing posts to the client.
+  const previews: PostPreview[] = posts.map((post) => ({
+    slug: post.slug,
+    readingTime: post.readingTime,
+    metadata: {
+      title: post.metadata.title,
+      publishedAt: post.metadata.publishedAt,
+      summary: post.metadata.summary,
+      tags: post.metadata.tags,
+    },
+  }));
 
   return (
     <section>
@@ -23,7 +35,7 @@ export default async function BlogPage() {
         </p>
       </BlurFade>
 
-      <PostList posts={posts} />
+      <FilterablePosts posts={previews} tags={tags} />
     </section>
   );
 }
