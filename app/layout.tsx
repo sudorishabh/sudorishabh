@@ -42,6 +42,13 @@ export const metadata: Metadata = {
     title: `${DATA.name}`,
     card: "summary_large_image",
   },
+  alternates: {
+    types: {
+      "application/rss+xml": [
+        { url: "/rss.xml", title: `${DATA.name} — Blog` },
+      ],
+    },
+  },
   verification: {
     google: "",
     yandex: "",

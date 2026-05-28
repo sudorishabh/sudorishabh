@@ -226,6 +226,43 @@ export async function getPostsByTag(tagSlug: string): Promise<Post[]> {
   );
 }
 
+export type SearchablePost = PostPreview & {
+  /** Lowercased, plain-text haystack (title + summary + tags + body). */
+  searchText: string;
+};
+
+function toPlainText(html: string) {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z]+;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Lightweight, client-shippable index for full-text search on the blog page. */
+export async function getSearchIndex(): Promise<SearchablePost[]> {
+  const posts = await getBlogPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+    readingTime: post.readingTime,
+    metadata: {
+      title: post.metadata.title,
+      publishedAt: post.metadata.publishedAt,
+      summary: post.metadata.summary,
+      tags: post.metadata.tags,
+    },
+    searchText: [
+      post.metadata.title,
+      post.metadata.summary,
+      post.metadata.tags.join(" "),
+      toPlainText(post.source),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .slice(0, 8000),
+  }));
+}
+
 /** The chronologically adjacent posts, for prev/next navigation. */
 export async function getPostNeighbors(
   slug: string,
