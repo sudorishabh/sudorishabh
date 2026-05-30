@@ -1,0 +1,72 @@
+---
+title: "Notes on Retrieval-Augmented Generation"
+publishedAt: "2026-05-28"
+summary: "How RAG actually works, where it quietly breaks, and the retrieval tricks that move the needle."
+tags: ["AI", "RAG", "NLP"]
+---
+
+Retrieval-Augmented Generation (RAG) gets pitched as a solved problem: stuff
+some documents into a vector store, retrieve the top matches, and let the model
+answer. In practice, most of the quality lives in the boring parts — chunking
+and retrieval — not the model.
+
+## The core idea
+
+A RAG system has two halves. An **indexing** pipeline turns your documents into
+embeddings and stores them. A **query** pipeline embeds the user's question,
+finds the closest chunks, and passes them to the model as context.
+
+The model never "knows" your data. It only ever sees what retrieval hands it,
+which is why retrieval quality sets the ceiling for the whole system.
+
+## Chunking matters more than you think
+
+How you split documents decides what can ever be retrieved together.
+
+### Fixed-size chunks
+
+The default: split every N tokens with some overlap. Fast and predictable, but
+it happily cuts sentences — and ideas — in half.
+
+```python
+def chunk(text: str, size: int = 800, overlap: int = 100) -> list[str]:
+    chunks, start = [], 0
+    while start < len(text):
+        chunks.append(text[start : start + size])
+        start += size - overlap
+    return chunks
+```
+
+### Semantic chunks
+
+Split on structure instead — headings, paragraphs, or embedding-similarity
+boundaries. More work up front, but each chunk is a self-contained thought,
+which is exactly what you want to retrieve.
+
+## Retrieval
+
+Pure vector search is a strong baseline, but two additions consistently help:
+
+- **Hybrid search** — combine dense (embedding) and sparse (BM25/keyword)
+  retrieval. Keywords catch the exact IDs and names embeddings smooth over.
+- **Reranking** — over-fetch, say, 20 candidates, then use a cross-encoder to
+  reorder them. The top 5 after reranking beat the top 5 from vectors alone.
+
+## Evaluation
+
+You can't improve what you don't measure. Track retrieval and generation
+separately:
+
+| Layer       | Question it answers              | Metric          |
+| ----------- | -------------------------------- | --------------- |
+| Retrieval   | Did we fetch the right chunks?   | recall@k        |
+| Generation  | Is the answer grounded in them?  | faithfulness    |
+
+If recall@k is low, no amount of prompt tuning will save you — fix retrieval
+first.
+
+## Takeaways
+
+RAG is a retrieval problem wearing a generation costume. Spend your time on
+chunking and retrieval, measure both layers independently, and reach for the
+bigger model last.

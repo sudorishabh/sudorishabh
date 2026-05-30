@@ -1,0 +1,84 @@
+---
+title: "Building Multi-Agent Workflows with LangGraph"
+publishedAt: "2026-06-03"
+summary: "Coordinating multiple AI agents with shared state — and the pitfalls I hit moving from a single agent to a graph."
+tags: ["AI", "Agents", "LangGraph"]
+---
+
+A single agent in a `while` loop will take you surprisingly far. But the moment
+you want specialization — a planner, a researcher, a critic — that loop turns
+into a tangle of conditionals. Modeling the system as a **graph** keeps it
+honest.
+
+## Why multiple agents?
+
+Splitting work across agents buys you three things:
+
+- **Specialization** — each agent gets a focused prompt and a small toolset,
+  which is easier to steer than one mega-prompt.
+- **Separation of concerns** — a critic that only reviews is far more reliable
+  than an agent grading its own homework.
+- **Observability** — when something goes wrong, you can see *which* node did it.
+
+The cost is coordination: shared state, control flow, and termination.
+
+## Modeling the graph
+
+LangGraph frames the problem as nodes (work) and edges (control flow) over a
+shared state object.
+
+### State
+
+State is the contract every node reads from and writes to. Keep it small and
+explicit.
+
+```python
+from typing import Annotated, TypedDict
+from operator import add
+
+class State(TypedDict):
+    task: str
+    findings: Annotated[list[str], add]  # nodes append, not overwrite
+    answer: str
+```
+
+### Nodes and edges
+
+A node is just a function `State -> partial State`. Conditional edges decide
+where to go next.
+
+```python
+from langgraph.graph import StateGraph, END
+
+def research(state: State) -> dict:
+    return {"findings": [f"note about {state['task']}"]}
+
+def should_continue(state: State) -> str:
+    return "write" if len(state["findings"]) >= 3 else "research"
+
+graph = StateGraph(State)
+graph.add_node("research", research)
+graph.add_node("write", write_answer)
+graph.set_entry_point("research")
+graph.add_conditional_edges("research", should_continue,
+                            {"research": "research", "write": "write"})
+graph.add_edge("write", END)
+app = graph.compile()
+```
+
+## Pitfalls
+
+A few that cost me real time:
+
+- **State that overwrites instead of accumulates.** Use reducers (like `add`
+  above) for anything multiple nodes append to.
+- **No loop guard.** Agents will happily cycle forever; cap iterations in the
+  state and check it in your conditional edge.
+- **Chatty handoffs.** Passing full transcripts between agents burns tokens
+  fast. Pass summaries, not raw history.
+
+## Wrapping up
+
+Multi-agent isn't automatically better — a sharp single agent often wins. But
+when the work genuinely splits into roles, a graph with explicit state and
+edges turns "prompt spaghetti" into something you can debug.
