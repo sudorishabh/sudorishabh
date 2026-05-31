@@ -1,11 +1,10 @@
 import BlurFade from "@/components/magicui/blur-fade";
+import { PostHeader } from "@/components/post-header";
 import { PostNavigation } from "@/components/post-navigation";
 import { TableOfContents } from "@/components/table-of-contents";
-import { getBlogPosts, getPost, getPostNeighbors, slugify } from "@/data/blog";
+import { getBlogPosts, getPost, getPostNeighbors } from "@/data/blog";
 import { DATA } from "@/data/resume";
-import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -100,58 +99,15 @@ export default async function Blog({
         }}
       />
 
-      <BlurFade delay={BLUR_FADE_DELAY}>
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          &larr; Back to blog
-        </Link>
-      </BlurFade>
-
-      <BlurFade delay={BLUR_FADE_DELAY * 2}>
-        <h1 className="title text-2xl font-medium tracking-tighter text-balance">
-          {post.metadata.title}
-        </h1>
-      </BlurFade>
-
-      <BlurFade delay={BLUR_FADE_DELAY * 3}>
-        <div className="mt-3 mb-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-          <time dateTime={post.metadata.publishedAt}>
-            {formatDate(post.metadata.publishedAt)}
-          </time>
-          <span aria-hidden className="text-border">
-            &middot;
-          </span>
-          <span>{post.readingTime} min read</span>
-          {post.metadata.tags.length > 0 && (
-            <>
-              <span aria-hidden className="text-border">
-                &middot;
-              </span>
-              <span className="flex flex-wrap gap-x-2">
-                {post.metadata.tags.map((tag) => (
-                  <Link
-                    key={tag}
-                    href={`/blog/tags/${slugify(tag)}`}
-                    className="text-muted-foreground/70 transition-colors hover:text-foreground"
-                  >
-                    #{tag}
-                  </Link>
-                ))}
-              </span>
-            </>
-          )}
-        </div>
-      </BlurFade>
+      <PostHeader post={post} />
 
       {post.toc.length >= 2 && (
-        <BlurFade delay={BLUR_FADE_DELAY * 4}>
+        <BlurFade delay={BLUR_FADE_DELAY * 7}>
           <TableOfContents items={post.toc} />
         </BlurFade>
       )}
 
-      <BlurFade delay={BLUR_FADE_DELAY * 5}>
+      <BlurFade delay={BLUR_FADE_DELAY * 8}>
         <article
           className="article-content"
           dangerouslySetInnerHTML={{ __html: post.source }}
