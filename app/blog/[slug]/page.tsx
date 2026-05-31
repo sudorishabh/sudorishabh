@@ -1,4 +1,5 @@
 import { BackToTop } from "@/components/back-to-top";
+import { CodeBlockEnhancements } from "@/components/code-block-enhancements";
 import BlurFade from "@/components/magicui/blur-fade";
 import { PostHeader } from "@/components/post-header";
 import { PostNavigation } from "@/components/post-navigation";
@@ -118,6 +119,7 @@ export default async function Blog({
           dangerouslySetInnerHTML={{ __html: post.source }}
         />
       </BlurFade>
+      <CodeBlockEnhancements />
 
       <PostNavigation older={older} newer={newer} />
     </section>

@@ -209,8 +209,16 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 .article-content :not(pre) > code {
   @apply rounded-md bg-muted px-1.5 py-0.5 text-[0.85em] font-normal;
 }
+.article-content figure[data-rehype-pretty-code-figure] {
+  @apply relative my-6;
+  margin-left: 0;
+  margin-right: 0;
+}
 .article-content pre {
   @apply my-6 border border-border/60 bg-muted/40;
+}
+.article-content figure[data-rehype-pretty-code-figure] pre {
+  @apply my-0;
 }
 .article-content table {
   @apply my-6 block w-full overflow-x-auto border-collapse text-sm;
