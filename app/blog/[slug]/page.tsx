@@ -1,6 +1,8 @@
+import { BackToTop } from "@/components/back-to-top";
 import BlurFade from "@/components/magicui/blur-fade";
 import { PostHeader } from "@/components/post-header";
 import { PostNavigation } from "@/components/post-navigation";
+import { ReadingProgress } from "@/components/reading-progress";
 import { TableOfContents } from "@/components/table-of-contents";
 import { getBlogPosts, getPost, getPostNeighbors } from "@/data/blog";
 import { DATA } from "@/data/resume";
@@ -76,6 +78,9 @@ export default async function Blog({
 
   return (
     <section id="blog">
+      <ReadingProgress />
+      <BackToTop />
+
       <script
         type="application/ld+json"
         suppressHydrationWarning
