@@ -1,8 +1,10 @@
+import { AuthorCard } from "@/components/author-card";
 import { BackToTop } from "@/components/back-to-top";
 import { CodeBlockEnhancements } from "@/components/code-block-enhancements";
 import BlurFade from "@/components/magicui/blur-fade";
 import { PostHeader } from "@/components/post-header";
 import { PostNavigation } from "@/components/post-navigation";
+import { PostShare } from "@/components/post-share";
 import { ReadingProgress } from "@/components/reading-progress";
 import { TableOfContents } from "@/components/table-of-contents";
 import { getBlogPosts, getPost, getPostNeighbors } from "@/data/blog";
@@ -121,7 +123,24 @@ export default async function Blog({
       </BlurFade>
       <CodeBlockEnhancements />
 
-      <PostNavigation older={older} newer={newer} />
+      <BlurFade delay={BLUR_FADE_DELAY * 9}>
+        <div className="mt-16 border-t border-border/60 pt-8">
+          <PostShare
+            url={`${DATA.url}/blog/${post.slug}`}
+            title={post.metadata.title}
+          />
+        </div>
+      </BlurFade>
+
+      <BlurFade delay={BLUR_FADE_DELAY * 10}>
+        <div className="mt-8">
+          <AuthorCard />
+        </div>
+      </BlurFade>
+
+      <BlurFade delay={BLUR_FADE_DELAY * 11}>
+        <PostNavigation older={older} newer={newer} />
+      </BlurFade>
     </section>
   );
 }

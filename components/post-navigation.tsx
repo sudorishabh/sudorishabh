@@ -1,4 +1,5 @@
 import type { Post } from "@/data/blog";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export function PostNavigation({
@@ -11,33 +12,38 @@ export function PostNavigation({
   if (!older && !newer) return null;
 
   return (
-    <nav className="mt-16 grid grid-cols-2 gap-4 border-t border-border/60 pt-8">
-      <div>
-        {older && (
-          <Link
-            href={`/blog/${older.slug}`}
-            className="group flex flex-col gap-1"
-          >
-            <span className="text-xs text-muted-foreground">&larr; Older</span>
-            <span className="text-sm font-medium tracking-tight group-hover:underline">
-              {older.metadata.title}
-            </span>
-          </Link>
-        )}
-      </div>
-      <div className="text-right">
-        {newer && (
-          <Link
-            href={`/blog/${newer.slug}`}
-            className="group flex flex-col items-end gap-1"
-          >
-            <span className="text-xs text-muted-foreground">Newer &rarr;</span>
-            <span className="text-sm font-medium tracking-tight group-hover:underline">
-              {newer.metadata.title}
-            </span>
-          </Link>
-        )}
-      </div>
+    <nav className="mt-8 grid gap-4 sm:grid-cols-2">
+      {older ? (
+        <Link
+          href={`/blog/${older.slug}`}
+          className="group flex flex-col gap-2 rounded-xl border border-border/60 p-4 transition-colors hover:border-foreground/30 hover:bg-muted/40"
+        >
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <ArrowLeft className="size-3" /> Older
+          </span>
+          <span className="line-clamp-2 text-sm font-medium tracking-tight group-hover:underline">
+            {older.metadata.title}
+          </span>
+        </Link>
+      ) : (
+        <div className="hidden sm:block" />
+      )}
+
+      {newer ? (
+        <Link
+          href={`/blog/${newer.slug}`}
+          className="group flex flex-col items-end gap-2 rounded-xl border border-border/60 p-4 text-right transition-colors hover:border-foreground/30 hover:bg-muted/40"
+        >
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            Newer <ArrowRight className="size-3" />
+          </span>
+          <span className="line-clamp-2 text-sm font-medium tracking-tight group-hover:underline">
+            {newer.metadata.title}
+          </span>
+        </Link>
+      ) : (
+        <div className="hidden sm:block" />
+      )}
     </nav>
   );
 }
