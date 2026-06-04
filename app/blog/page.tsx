@@ -20,25 +20,25 @@ export default async function BlogPage() {
 
   return (
     <section>
-      <header className="mb-12">
+      <header className="mb-8">
         <BlurFade delay={BLUR_FADE_DELAY}>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
             {DATA.name}
           </p>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-          <h1 className="mt-3 text-balance bg-linear-to-br from-foreground via-foreground to-brand bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-5xl">
+          <h1 className="mt-2 text-balance bg-linear-to-br from-foreground via-foreground to-brand bg-clip-text text-3xl font-semibold tracking-tight text-transparent sm:text-4xl">
             Writing
           </h1>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 2}>
-          <p className="mt-4 max-w-xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-3 max-w-xl text-balance text-sm leading-relaxed text-muted-foreground sm:text-base">
             Notes on AI, machine learning, and building software — plus the
             occasional deep dive into the things I&apos;m learning.
           </p>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 2.5}>
-          <div className="mt-6 flex items-center gap-4">
+          <div className="mt-4 flex items-center gap-4">
             <div className="flex items-center gap-3">
               {socials.map((social) => (
                 <Link

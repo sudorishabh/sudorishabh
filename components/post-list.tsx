@@ -20,12 +20,12 @@ export function PostList({
   }
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-0.5">
       {posts.map((post, id) => (
         <BlurFade key={post.slug} delay={startDelay + id * 0.05}>
           <Link
             href={`/blog/${post.slug}`}
-            className="group -mx-4 flex flex-col gap-1.5 rounded-xl px-4 py-4 transition-colors hover:bg-muted/40"
+            className="group -mx-4 flex flex-col gap-1 rounded-xl px-4 py-3 transition-colors hover:bg-muted/40"
           >
             <div className="flex items-baseline justify-between gap-4">
               <h2 className="flex items-center gap-1 font-medium tracking-tight">
@@ -41,12 +41,12 @@ export function PostList({
             </div>
 
             {post.metadata.summary && (
-              <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                 {post.metadata.summary}
               </p>
             )}
 
-            <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
               <span>{post.readingTime} min read</span>
               {post.metadata.tags.length > 0 && (
                 <>

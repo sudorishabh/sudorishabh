@@ -39,7 +39,7 @@ export function FilterablePosts({
     <div>
       {featured && (
         <BlurFade delay={BLUR_FADE_DELAY}>
-          <div className="mb-10">
+          <div className="mb-8">
             <FeaturedPost post={featured} />
           </div>
         </BlurFade>
@@ -61,7 +61,7 @@ export function FilterablePosts({
 
       {tags.length > 0 && (
         <BlurFade delay={BLUR_FADE_DELAY * 2}>
-          <div className="mb-6 flex flex-wrap gap-2">
+          <div className="mb-5 flex flex-wrap gap-2">
             <button
               type="button"
               onClick={() => setActive(null)}
@@ -85,7 +85,7 @@ export function FilterablePosts({
       )}
 
       {!isDefault && (
-        <p className="mb-6 text-xs text-muted-foreground">
+        <p className="mb-5 text-xs text-muted-foreground">
           {filtered.length} {filtered.length === 1 ? "result" : "results"}
         </p>
       )}
