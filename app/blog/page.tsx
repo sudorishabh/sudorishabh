@@ -27,7 +27,7 @@ export default async function BlogPage() {
           </p>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-          <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="mt-3 text-balance bg-linear-to-br from-foreground via-foreground to-brand bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-5xl">
             Writing
           </h1>
         </BlurFade>
@@ -47,7 +47,7 @@ export default async function BlogPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-brand"
                 >
                   <social.icon className="size-4" />
                 </Link>
@@ -56,7 +56,7 @@ export default async function BlogPage() {
             <span className="h-4 w-px bg-border" />
             <a
               href="/rss.xml"
-              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-brand"
             >
               <Rss className="size-3.5" />
               RSS

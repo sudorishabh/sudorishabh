@@ -20,6 +20,7 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --color-brand: hsl(var(--brand));
   --radius: var(--radius);
 }
 
@@ -53,6 +54,8 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
 
+    --brand: 161 94% 30%;
+
     --radius: 0.5rem;
   }
 
@@ -84,6 +87,8 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+
+    --brand: 158 64% 52%;
   }
 }
 
@@ -185,7 +190,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   @apply font-semibold text-foreground;
 }
 .article-content a {
-  @apply font-medium text-foreground underline decoration-muted-foreground/40 underline-offset-4 transition-colors hover:decoration-foreground;
+  @apply font-medium text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand;
 }
 .article-content ul {
   @apply list-disc space-y-2 pl-6 marker:text-muted-foreground;
@@ -198,7 +203,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   @apply mt-2;
 }
 .article-content blockquote {
-  @apply border-l-2 border-border pl-4 italic text-muted-foreground;
+  @apply border-l-2 border-brand/60 pl-4 italic text-muted-foreground;
 }
 .article-content hr {
   @apply my-10 border-border;

@@ -30,7 +30,7 @@ export function PostList({
             <div className="flex items-baseline justify-between gap-4">
               <h2 className="flex items-center gap-1 font-medium tracking-tight">
                 {post.metadata.title}
-                <ArrowUpRight className="size-3.5 shrink-0 -translate-y-px text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                <ArrowUpRight className="size-3.5 shrink-0 -translate-y-px text-brand opacity-0 transition-opacity group-hover:opacity-100" />
               </h2>
               <time
                 dateTime={post.metadata.publishedAt}
@@ -56,7 +56,7 @@ export function PostList({
                   {post.metadata.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full bg-muted px-2 py-0.5 text-[11px]"
+                      className="rounded-full bg-brand/10 px-2 py-0.5 text-[11px] text-brand"
                     >
                       #{tag}
                     </span>

@@ -54,7 +54,7 @@ export function FilterablePosts({
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search posts…"
             aria-label="Search posts"
-            className="w-full rounded-lg border border-border bg-transparent py-2 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/40"
+            className="w-full rounded-lg border border-border bg-transparent py-2 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-brand"
           />
         </div>
       </BlurFade>

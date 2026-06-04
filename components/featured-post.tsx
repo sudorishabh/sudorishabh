@@ -7,10 +7,10 @@ export function FeaturedPost({ post }: { post: PostPreview }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group relative block overflow-hidden rounded-2xl border border-border/60 bg-muted/20 p-6 transition-colors hover:border-foreground/30 hover:bg-muted/40 sm:p-8"
+      className="group relative block overflow-hidden rounded-2xl border border-border/60 bg-muted/20 p-6 transition-colors hover:border-brand/40 hover:bg-muted/40 sm:p-8"
     >
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-        <span className="rounded-full bg-foreground px-2 py-0.5 font-medium text-background">
+        <span className="rounded-full bg-brand px-2 py-0.5 font-medium text-background">
           Latest
         </span>
         <time dateTime={post.metadata.publishedAt}>
@@ -37,7 +37,7 @@ export function FeaturedPost({ post }: { post: PostPreview }) {
           {post.metadata.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground"
+              className="rounded-full bg-brand/10 px-2.5 py-0.5 text-xs text-brand"
             >
               #{tag}
             </span>
@@ -45,7 +45,7 @@ export function FeaturedPost({ post }: { post: PostPreview }) {
         </div>
       )}
 
-      <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-foreground">
+      <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand">
         Read post
         <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
       </span>

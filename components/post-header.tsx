@@ -29,7 +29,7 @@ export function PostHeader({ post }: { post: Post }) {
               <Link
                 key={tag}
                 href={`/blog/tags/${slugify(tag)}`}
-                className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
+                className="text-xs font-medium uppercase tracking-wider text-brand/90 transition-colors hover:text-brand"
               >
                 {tag}
               </Link>

@@ -10,8 +10,8 @@ export function tagPillClass(active: boolean) {
   return cn(
     "rounded-full border px-3 py-1 text-xs transition-colors",
     active
-      ? "border-foreground bg-foreground text-background"
-      : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
+      ? "border-brand bg-brand text-background"
+      : "border-border text-muted-foreground hover:border-brand/40 hover:text-foreground",
   );
 }
 
