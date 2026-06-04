@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "../data/resume";
@@ -74,6 +75,9 @@ export default function RootLayout({
         <ThemeProvider
           attribute='class'
           defaultTheme='light'>
+          <div className="fixed right-3 top-3 z-50">
+            <ModeToggle />
+          </div>
           <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
         </ThemeProvider>
       </body>
