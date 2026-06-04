@@ -12,17 +12,19 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+const SITE_DESCRIPTION = `The blog of ${DATA.name} — notes on AI, machine learning, and building software.`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
   title: {
-    default: DATA.name,
+    default: `${DATA.name} — Blog`,
     template: `%s | ${DATA.name}`,
   },
-  description: DATA.description,
+  description: SITE_DESCRIPTION,
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
-    url: DATA.url,
+    title: `${DATA.name} — Blog`,
+    description: SITE_DESCRIPTION,
+    url: `${DATA.url}/blog`,
     siteName: `${DATA.name}`,
     locale: "en_US",
     type: "website",
@@ -39,7 +41,8 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.name}`,
+    title: `${DATA.name} — Blog`,
+    description: SITE_DESCRIPTION,
     card: "summary_large_image",
   },
   alternates: {
