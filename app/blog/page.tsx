@@ -1,7 +1,9 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { FilterablePosts } from "@/components/filterable-posts";
 import { getAllTags, getSearchIndex } from "@/data/blog";
+import { DATA } from "@/data/resume";
 import { Rss } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = {
   title: "Blog",
@@ -12,26 +14,56 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default async function BlogPage() {
   const [posts, tags] = await Promise.all([getSearchIndex(), getAllTags()]);
+  const socials = Object.values(DATA.contact.social).filter(
+    (social) => social.navbar,
+  );
 
   return (
     <section>
-      <BlurFade delay={BLUR_FADE_DELAY}>
-        <div className="mb-2 flex items-center justify-between gap-4">
-          <h1 className="text-2xl font-medium tracking-tighter">blog</h1>
-          <a
-            href="/rss.xml"
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <Rss className="size-3.5" />
-            RSS
-          </a>
-        </div>
-      </BlurFade>
-      <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-        <p className="mb-8 text-sm text-muted-foreground">
-          Notes on AI, machine learning, and building software.
-        </p>
-      </BlurFade>
+      <header className="mb-12">
+        <BlurFade delay={BLUR_FADE_DELAY}>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            {DATA.name}
+          </p>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
+          <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+            Writing
+          </h1>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 2}>
+          <p className="mt-4 max-w-xl text-balance text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Notes on AI, machine learning, and building software — plus the
+            occasional deep dive into the things I&apos;m learning.
+          </p>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 2.5}>
+          <div className="mt-6 flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              {socials.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <social.icon className="size-4" />
+                </Link>
+              ))}
+            </div>
+            <span className="h-4 w-px bg-border" />
+            <a
+              href="/rss.xml"
+              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Rss className="size-3.5" />
+              RSS
+            </a>
+          </div>
+        </BlurFade>
+      </header>
 
       <FilterablePosts posts={posts} tags={tags} />
     </section>

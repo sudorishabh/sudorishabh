@@ -1,6 +1,7 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import type { PostPreview } from "@/data/blog";
 import { formatShortDate } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -15,22 +16,21 @@ export function PostList({
   emptyMessage?: string;
 }) {
   if (posts.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">{emptyMessage}</p>
-    );
+    return <p className="text-sm text-muted-foreground">{emptyMessage}</p>;
   }
 
   return (
-    <div className="flex flex-col divide-y divide-border/50">
+    <div className="flex flex-col gap-1">
       {posts.map((post, id) => (
         <BlurFade key={post.slug} delay={startDelay + id * 0.05}>
           <Link
             href={`/blog/${post.slug}`}
-            className="group flex flex-col gap-1.5 py-5 transition-opacity"
+            className="group -mx-4 flex flex-col gap-1.5 rounded-xl px-4 py-4 transition-colors hover:bg-muted/40"
           >
             <div className="flex items-baseline justify-between gap-4">
-              <h2 className="font-medium tracking-tight underline-offset-4 group-hover:underline">
+              <h2 className="flex items-center gap-1 font-medium tracking-tight">
                 {post.metadata.title}
+                <ArrowUpRight className="size-3.5 shrink-0 -translate-y-px text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
               </h2>
               <time
                 dateTime={post.metadata.publishedAt}
@@ -41,25 +41,26 @@ export function PostList({
             </div>
 
             {post.metadata.summary && (
-              <p className="line-clamp-2 text-sm text-muted-foreground">
+              <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                 {post.metadata.summary}
               </p>
             )}
 
-            <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+            <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
               <span>{post.readingTime} min read</span>
               {post.metadata.tags.length > 0 && (
                 <>
                   <span aria-hidden className="text-border">
                     &middot;
                   </span>
-                  <span className="flex flex-wrap gap-x-2">
-                    {post.metadata.tags.map((tag) => (
-                      <span key={tag} className="text-muted-foreground/70">
-                        #{tag}
-                      </span>
-                    ))}
-                  </span>
+                  {post.metadata.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-muted px-2 py-0.5 text-[11px]"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
                 </>
               )}
             </div>
