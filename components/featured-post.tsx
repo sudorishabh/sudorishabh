@@ -7,8 +7,13 @@ export function FeaturedPost({ post }: { post: PostPreview }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group relative block overflow-hidden rounded-2xl border border-border/60 bg-muted/20 p-5 transition-colors hover:border-brand/40 hover:bg-muted/40 sm:p-6"
+      className="group relative isolate block overflow-hidden rounded-2xl border border-border/60 bg-muted/20 p-5 transition-colors hover:border-brand/40 hover:bg-muted/40 sm:p-6"
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-16 -top-16 -z-10 size-40 rounded-full bg-brand/15 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
+      />
+
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
         <span className="rounded-full bg-brand px-2 py-0.5 font-medium text-background">
           Latest

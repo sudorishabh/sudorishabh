@@ -46,7 +46,7 @@ export default async function TagPage({
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
         <Link
-          href="/blog"
+          href="/"
           className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           &larr; All posts

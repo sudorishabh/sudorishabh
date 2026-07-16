@@ -15,7 +15,7 @@ export function PostHeader({ post }: { post: Post }) {
     <header className="mb-8">
       <BlurFade delay={DELAY}>
         <Link
-          href="/blog"
+          href="/"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           &larr; Blog

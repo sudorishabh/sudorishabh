@@ -25,34 +25,36 @@ export function PostList({
         <BlurFade key={post.slug} delay={startDelay + id * 0.05}>
           <Link
             href={`/blog/${post.slug}`}
-            className="group -mx-4 flex flex-col gap-1 rounded-xl px-4 py-3 transition-colors hover:bg-muted/40"
+            className="group -mx-4 grid grid-cols-[4.5rem_1fr] gap-4 rounded-xl px-4 py-3 transition-colors hover:bg-muted/40 sm:grid-cols-[6.5rem_1fr]"
           >
-            <div className="flex items-baseline justify-between gap-4">
-              <h2 className="flex items-center gap-1 font-medium tracking-tight">
-                {post.metadata.title}
-                <ArrowUpRight className="size-3.5 shrink-0 -translate-y-px text-brand opacity-0 transition-opacity group-hover:opacity-100" />
-              </h2>
+            <div className="pt-0.5 text-right">
               <time
                 dateTime={post.metadata.publishedAt}
-                className="shrink-0 text-xs tabular-nums text-muted-foreground"
+                className="block text-xs tabular-nums text-muted-foreground"
               >
                 {formatShortDate(post.metadata.publishedAt)}
               </time>
+              <span className="mt-0.5 block text-[11px] text-muted-foreground/70">
+                {post.readingTime} min
+              </span>
             </div>
 
-            {post.metadata.summary && (
-              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                {post.metadata.summary}
-              </p>
-            )}
+            <div className="min-w-0 border-l border-border/60 pl-4 transition-colors group-hover:border-brand/50">
+              <div className="flex items-start justify-between gap-3">
+                <h2 className="font-medium leading-snug tracking-tight transition-colors group-hover:text-brand">
+                  {post.metadata.title}
+                </h2>
+                <ArrowUpRight className="mt-0.5 size-4 shrink-0 -translate-x-1 text-brand opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+              </div>
 
-            <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-              <span>{post.readingTime} min read</span>
+              {post.metadata.summary && (
+                <p className="mt-1 line-clamp-2 text-sm leading-snug text-muted-foreground">
+                  {post.metadata.summary}
+                </p>
+              )}
+
               {post.metadata.tags.length > 0 && (
-                <>
-                  <span aria-hidden className="text-border">
-                    &middot;
-                  </span>
+                <div className="mt-2 flex flex-wrap gap-1.5">
                   {post.metadata.tags.map((tag) => (
                     <span
                       key={tag}
@@ -61,7 +63,7 @@ export function PostList({
                       #{tag}
                     </span>
                   ))}
-                </>
+                </div>
               )}
             </div>
           </Link>

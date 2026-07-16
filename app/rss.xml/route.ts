@@ -44,7 +44,7 @@ ${post.metadata.tags
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${escapeXml(BLOG_TITLE)}</title>
-    <link>${site}/blog</link>
+    <link>${site}</link>
     <description>${escapeXml(BLOG_DESCRIPTION)}</description>
     <language>en-us</language>
     <atom:link href="${site}/rss.xml" rel="self" type="application/rss+xml" />

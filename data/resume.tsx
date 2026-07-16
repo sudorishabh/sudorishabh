@@ -36,7 +36,7 @@ export const DATA = {
     "Pydantic",
     "Streamlit",
   ],
-  navbar: [{ href: "/blog", icon: NotebookIcon, label: "Blog" }],
+  navbar: [{ href: "/", icon: NotebookIcon, label: "Blog" }],
   contact: {
     email: "samiksha.shukla@example.com",
     tel: "",
