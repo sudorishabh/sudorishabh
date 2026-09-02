@@ -1,4 +1,4 @@
-import { ModeToggle } from "@/components/mode-toggle";
+import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "../data/resume";
@@ -69,16 +69,18 @@ export default function RootLayout({
       suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}>
         <ThemeProvider
           attribute='class'
           defaultTheme='light'>
-          <div className="fixed right-3 top-3 z-50">
-            <ModeToggle />
-          </div>
-          <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
+          <TooltipProvider delayDuration={0}>
+            <SiteHeader />
+            <div className="mx-auto max-w-2xl px-6 py-12 sm:py-16">
+              {children}
+            </div>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

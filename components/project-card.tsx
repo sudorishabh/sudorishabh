@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ProjectCover, type ProjectCoverVariant } from "@/components/project-cover";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +21,7 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
+  cover?: ProjectCoverVariant;
   links?: readonly {
     icon: React.ReactNode;
     type: string;
@@ -37,13 +39,14 @@ export function ProjectCard({
   link,
   image,
   video,
+  cover,
   links,
   className,
 }: Props) {
   return (
     <Card
       className={
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
+        "group flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
       }
     >
       <Link
@@ -60,7 +63,7 @@ export function ProjectCard({
             className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
           />
         )}
-        {image && (
+        {!video && image && (
           <Image
             src={image}
             alt={title}
@@ -69,6 +72,7 @@ export function ProjectCard({
             className="h-40 w-full overflow-hidden object-cover object-top"
           />
         )}
+        {!video && !image && cover && <ProjectCover variant={cover} />}
       </Link>
       <CardHeader className="px-2">
         <div className="space-y-1">

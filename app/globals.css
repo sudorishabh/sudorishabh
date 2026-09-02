@@ -235,3 +235,46 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 .article-content th {
   @apply bg-muted/50 font-medium;
 }
+
+/* ------------------------------------------------------------------ */
+/* Generative project covers (components/project-cover.tsx)           */
+/* ------------------------------------------------------------------ */
+@keyframes attn-scan {
+  0%,
+  100% {
+    left: -10%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.55;
+  }
+  50% {
+    left: 92%;
+    opacity: 0.55;
+  }
+  85% {
+    opacity: 0;
+  }
+}
+
+@keyframes recur-spin-cw {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes recur-spin-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes recur-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}

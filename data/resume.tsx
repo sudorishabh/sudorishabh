@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "AI/ML Engineer with hands-on experience building scalable AI agents, automation systems, and workflow tools. I specialise in Machine Learning, Deep Learning, NLP, and backend development with Python and FastAPI.",
   summary:
-    "AI/ML Engineer passionate about building intelligent systems. Currently working on multi-agent workflows and building [ContextMemory](https://github.com/samiksha0shukla/context-memory), a memory system for AI applications. I specialise in Machine Learning, Deep Learning, NLP, and backend development with Python and FastAPI.",
+    "AI/ML Engineer passionate about building intelligent systems. Currently working on multi-agent workflows. I specialise in Machine Learning, Deep Learning, NLP, and backend development with Python and FastAPI.",
   avatarUrl: "/me.png",
   Skills: [
     {
@@ -38,31 +38,25 @@ export const DATA = {
   ],
   navbar: [{ href: "/", icon: NotebookIcon, label: "Blog" }],
   contact: {
-    email: "samiksha.shukla@example.com",
+    email: "rishabhnegi175@gmail.com",
     tel: "",
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://github.com/samiksha0shukla",
+        url: "https://github.com/sudorishabh",
         icon: Icons.github,
         navbar: true,
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/samiksha-shukla-7b2207217/",
+        url: "https://www.linkedin.com/in/sudorishabh/",
         icon: Icons.linkedin,
         navbar: true,
       },
       X: {
         name: "X",
-        url: "https://x.com/Samiksha2908",
+        url: "https://x.com/sudorishabh",
         icon: Icons.x,
-        navbar: true,
-      },
-      Cal: {
-        name: "Book a Call",
-        url: "https://cal.com/samiksha-shukla-03/30min",
-        icon: Icons.calendar,
         navbar: true,
       },
       email: {
@@ -112,126 +106,10 @@ export const DATA = {
   ],
   projects: [
     {
-      title: "ContextMemory",
-      href: "https://github.com/samiksha0shukla/context-memory",
-      //dates: "2024 - Present",
-      active: true,
-      description:
-        "A memory system for AI apps that builds context graphs from interactions. Extracts facts as connected semantic and episodic memories, enables intelligent retrieval, and powers contextual responses across conversations.",
-      technologies: [
-        "Python",
-        "OpenAI",
-        "PostgreSQL",
-        "Semantic Search",
-        "Vector Database",
-        "RAG",
-        "Graph DB",
-        "PyPI",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://www.contextmemory.online/",
-          icon: <Icons.globe className='size-3' />,
-        },
-        {
-          type: "Package",
-          href: "https://pypi.org/project/contextmemory/",
-          icon: <Icons.globe className='size-3' />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
-      title: "AIxAI",
-      href: "https://github.com/samiksha0shukla/AIxAI",
-      //dates: "2024",
-      active: true,
-      description:
-        "MCP-powered system that generates Pydantic AI agents using multi-agent LangGraph workflows. Crawls and chunks docs, stores in Supabase with OpenAI embeddings. Provides semantic search and RAG-based answers.",
-      technologies: [
-        "Agentic AI",
-        "MultiAgent Workflow",
-        "Pydantic AI",
-        "LangGraph",
-        "Supabase",
-        "Agentic RAG",
-        "MCP",
-        "Python",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://aixai-mkfm.onrender.com/",
-          icon: <Icons.globe className='size-3' />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/samiksha0shukla/AIxAI",
-          icon: <Icons.github className='size-3' />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
-      title: "HomeSage",
-      href: "https://github.com/samiksha0shukla/HomeSage",
-      //dates: "2024",
-      active: true,
-      description:
-        "Smart companion for real estate price prediction and analytics. Leverages ML for accurate predictions and personalized property recommendations.",
-      technologies: [
-        "Python",
-        "Machine Learning",
-        "Data Analytics",
-        "Data Visualization",
-        "Data Engineering",
-        "Feature Engineering",
-        "EDA",
-        "Prediction Models",
-      ],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/samiksha0shukla/HomeSage",
-          icon: <Icons.github className='size-3' />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
-      title: "n8n",
-      href: "https://github.com/samiksha0shukla/n8n",
-      //dates: "2024",
-      active: true,
-      description:
-        "Visual workflow automation platform built with React and FastAPI. Design, connect, and automate workflows in real time with a drag-and-drop interface.",
-      technologies: [
-        "React",
-        "FastAPI",
-        "Pydantic",
-        "SQLAlchemy",
-        "Python",
-        "Workflow Automation",
-        "Real-time",
-      ],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/samiksha0shukla/n8n",
-          icon: <Icons.github className='size-3' />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
       title: "Transformers Research",
       href: "https://arxiv.org/pdf/1706.03762",
       active: true,
+      cover: "attention",
       description:
         "Deep dive into 'Attention Is All You Need' paper. Implementing transformer architecture from scratch, studying self-attention mechanisms and positional encodings.",
       technologies: [
@@ -256,6 +134,7 @@ export const DATA = {
       title: "Tiny Recursive Model",
       href: "https://arxiv.org/pdf/2510.04871",
       active: true,
+      cover: "recursive",
       description:
         "Researching efficient recursive model architectures and parameter-efficient approaches for LLMs. Exploring recursive computation and memory optimization in neural networks.",
       technologies: [
