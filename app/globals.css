@@ -1,1 +1,190 @@
 @import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+
+/*
+  The name is treated like a mis-registered print: two color plates (the
+  same rose/sky tones as the polaroids above) sit a hair off from the black
+  plate, screen-blended so they glow against the dark ground and snap into
+  register on load, like a print settling into alignment.
+*/
+.display-name {
+  position: relative;
+  isolation: isolate;
+  font-family: var(--font-display);
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 30,
+    "WONK" 1;
+  font-weight: 620;
+  color: #fafaf9;
+}
+
+.display-name::before,
+.display-name::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  font: inherit;
+  font-variation-settings: inherit;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: name-settle 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.1s;
+}
+
+.display-name::before {
+  --gx: -0.05em;
+  --gy: 0.035em;
+  color: #fb7185;
+}
+
+.display-name::after {
+  --gx: 0.055em;
+  --gy: -0.03em;
+  color: #38bdf8;
+}
+
+@keyframes name-settle {
+  from {
+    transform: translate3d(calc(var(--gx) * 5), calc(var(--gy) * 5), 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(var(--gx), var(--gy), 0);
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .display-name::before,
+  .display-name::after {
+    animation: none;
+    opacity: 0.85;
+    transform: translate3d(var(--gx), var(--gy), 0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 18s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/*
+  Each background layer is a full-bleed radial wash that falls off to fully
+  transparent well inside its own box, so nothing ever reads as a circle --
+  color just bleeds in and out of the dark ground. Layers share one keyframe
+  but run on unrelated durations, so the mix drifts instead of pulsing.
+*/
+@keyframes wash-drift {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  25% {
+    opacity: var(--wash-opacity, 0.5);
+  }
+  50% {
+    opacity: var(--wash-opacity, 0.5);
+    transform: translate3d(var(--wash-x, 3%), var(--wash-y, -3%), 0) scale(1.1);
+  }
+  75% {
+    opacity: var(--wash-opacity, 0.5);
+  }
+}
+
+/*
+  A second, much slower animation walks each layer around the color wheel, so
+  the palette keeps shifting independently of the fade cycle. 360deg lands back
+  on the start hue, so it loops without a seam.
+*/
+@keyframes hue-cycle {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.animate-wash-drift {
+  animation-name: wash-drift, hue-cycle;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite, infinite;
+  will-change: opacity, transform, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-wash-drift {
+    animation: none;
+    opacity: var(--wash-opacity, 0.5);
+    transform: none;
+    filter: none;
+  }
+}
+
+.ambient-wash {
+  opacity: var(--opacity);
+
+  background: radial-gradient(
+    90% 70% at var(--position),
+    rgba(var(--c1), 0.17),
+    rgba(var(--c2), 0.065) 40%,
+    transparent 72%
+  );
+
+  animation:
+    ambient-color var(--duration) var(--delay) ease-in-out infinite,
+    ambient-drift calc(var(--duration) * 1.7) var(--delay) ease-in-out infinite;
+
+  will-change: transform, filter, opacity;
+}
+
+@keyframes ambient-color {
+  0% {
+    filter: hue-rotate(0deg) saturate(90%);
+    opacity: calc(var(--opacity) * 0.65);
+  }
+
+  25% {
+    filter: hue-rotate(14deg) saturate(100%);
+    opacity: calc(var(--opacity) * 0.82);
+  }
+
+  50% {
+    filter: hue-rotate(28deg) saturate(108%);
+    opacity: calc(var(--opacity) * 0.9);
+  }
+
+  75% {
+    filter: hue-rotate(14deg) saturate(100%);
+    opacity: calc(var(--opacity) * 0.8);
+  }
+
+  100% {
+    filter: hue-rotate(-6deg) saturate(90%);
+    opacity: calc(var(--opacity) * 0.65);
+  }
+}
