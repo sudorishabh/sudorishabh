@@ -61,19 +61,30 @@ function useMounted() {
   );
 }
 
+/*
+  Angles are 12 evenly spaced points across a 200deg arc (-190 to 10), which
+  is exactly centered on CLUSTER_ANGLE (-90, straight up) -- every icon has a
+  mirror partner on the opposite side, so left/right stay balanced. Radii
+  cycle through three rings (66/104/142, i.e. 38px apart) in step with the
+  angle sequence, so any two angularly-adjacent icons also sit on different
+  rings; combined with the ring spacing that keeps every pair at least ~10px
+  apart edge-to-edge (chips are 36px), even the closest neighbors clear.
+*/
+const RING = { near: 66, mid: 104, far: 142 };
+
 const icons: TechIcon[] = [
-  { name: "TypeScript", icon: SiTypescript, color: "#3178C6", radius: 116, angle: -196, size: 18 },
-  { name: "React", icon: SiReact, color: "#61DAFB", radius: 90, angle: -175, size: 17 },
-  { name: "Next.js", icon: SiNextdotjs, color: "#EDEDED", radius: 64, angle: -156, size: 15 },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38BDF8", radius: 116, angle: -138, size: 18 },
-  { name: "Node.js", icon: SiNodedotjs, color: "#339933", radius: 90, angle: -118, size: 17 },
-  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", radius: 64, angle: -97, size: 15 },
-  { name: "Prisma", icon: SiPrisma, color: "#F0F0F0", radius: 116, angle: -78, size: 18 },
-  { name: "tRPC", icon: SiTrpc, color: "#398CCB", radius: 90, angle: -58, size: 17 },
-  { name: "Framer Motion", icon: SiFramer, color: "#0055FF", radius: 64, angle: -38, size: 15 },
-  { name: "Docker", icon: SiDocker, color: "#2496ED", radius: 116, angle: -18, size: 18 },
-  { name: "AWS", icon: FaAws, color: "#FF9900", radius: 90, angle: 0, size: 17 },
-  { name: "Vercel", icon: SiVercel, color: "#F0F0F0", radius: 64, angle: 14, size: 15 },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6", radius: RING.near, angle: -190, size: 15 },
+  { name: "React", icon: SiReact, color: "#61DAFB", radius: RING.mid, angle: -171.8, size: 17 },
+  { name: "Next.js", icon: SiNextdotjs, color: "#EDEDED", radius: RING.far, angle: -153.6, size: 18 },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38BDF8", radius: RING.near, angle: -135.5, size: 15 },
+  { name: "Node.js", icon: SiNodedotjs, color: "#339933", radius: RING.mid, angle: -117.3, size: 17 },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", radius: RING.far, angle: -99.1, size: 18 },
+  { name: "Prisma", icon: SiPrisma, color: "#F0F0F0", radius: RING.near, angle: -80.9, size: 15 },
+  { name: "tRPC", icon: SiTrpc, color: "#398CCB", radius: RING.mid, angle: -62.7, size: 17 },
+  { name: "Framer Motion", icon: SiFramer, color: "#0055FF", radius: RING.far, angle: -44.5, size: 18 },
+  { name: "Docker", icon: SiDocker, color: "#2496ED", radius: RING.near, angle: -26.4, size: 15 },
+  { name: "AWS", icon: FaAws, color: "#FF9900", radius: RING.mid, angle: -8.2, size: 17 },
+  { name: "Vercel", icon: SiVercel, color: "#F0F0F0", radius: RING.far, angle: 10, size: 18 },
 ];
 
 export default function StackMarquee() {
