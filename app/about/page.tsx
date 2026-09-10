@@ -25,7 +25,7 @@ export default function AboutPage() {
         <HeroSection />
 
         <div
-          className='animate-reveal'
+          className='animate-reveal mt-12'
           style={{ "--reveal-delay": "480ms" } as CSSProperties}>
           <StackMarquee />
         </div>
