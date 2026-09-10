@@ -13,7 +13,14 @@ export const metadata: Metadata = {
   description: "What I build and where I've been.",
 };
 
-const column = "mx-auto w-full max-w-3xl px-5";
+/*
+  Top padding clears the fixed nav (`site-nav.tsx`), whose pill bottoms out at
+  ~60px, rising to ~68px once its own `md:pt-6` kicks in. Without it the photo
+  stack starts at y=0 and the nav sits on top of its first row. The values
+  match the hero's `scroll-mt-24`, so an anchor jump to #top lands where the
+  page already rests.
+*/
+const column = "mx-auto w-full max-w-3xl px-5 pt-24 md:pt-28";
 
 export default function AboutPage() {
   return (
