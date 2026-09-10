@@ -59,7 +59,9 @@ const icons: TechIcon[] = [
 
 export default function StackMarquee() {
   const [active, setActive] = useState(false);
+  const [pinned, setPinned] = useState(false);
   const reduceMotion = useReducedMotion();
+  const isActive = active || pinned;
 
   return (
     <section
@@ -69,7 +71,14 @@ export default function StackMarquee() {
       onMouseLeave={() => setActive(false)}
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
-      onClick={() => setActive((value) => !value)}
+      onClick={() => {
+        // Touch devices report a click without a persistent hover state, so
+        // give them an explicit toggle instead of relying on mouseenter --
+        // otherwise the enter+click pair from a single tap cancel out.
+        if (typeof window !== "undefined" && !window.matchMedia("(hover: hover)").matches) {
+          setPinned((value) => !value);
+        }
+      }}
       className={glass(
         { density: "regular" },
         "relative flex min-h-[300px] flex-col items-center justify-center overflow-hidden rounded-3xl px-6 sm:min-h-[380px] md:min-h-[420px]",
@@ -78,7 +87,7 @@ export default function StackMarquee() {
         aria-hidden='true'
         className='pointer-events-none absolute inset-0'
         initial={false}
-        animate={{ backgroundColor: active ? "rgba(0,0,0,0.38)" : "rgba(0,0,0,0)" }}
+        animate={{ backgroundColor: isActive ? "rgba(0,0,0,0.38)" : "rgba(0,0,0,0)" }}
         transition={{ duration: 0.6, ease: EASE }}
       />
 
@@ -91,7 +100,7 @@ export default function StackMarquee() {
           const rotateTransition = {
             duration: 0.9,
             ease: EASE,
-            delay: active ? i * 0.035 : 0,
+            delay: isActive ? i * 0.035 : 0,
           };
 
           return (
@@ -100,22 +109,22 @@ export default function StackMarquee() {
               className='absolute top-0 left-0'
               style={{ originX: 0, originY: 0 }}
               initial={false}
-              animate={{ rotate: active ? item.angle : restAngle }}
+              animate={{ rotate: isActive ? item.angle : restAngle }}
               transition={rotateTransition}>
               <motion.div
                 initial={false}
-                animate={{ rotate: active ? -item.angle : -restAngle }}
+                animate={{ rotate: isActive ? -item.angle : -restAngle }}
                 transition={rotateTransition}>
                 <div
                   style={{ transform: `translateX(${item.radius}px) translate(-50%, -50%)` }}>
                   <motion.div
                     className='grid size-10 place-items-center rounded-full border border-white/[0.08] bg-white/[0.06] backdrop-blur-sm'
                     initial={false}
-                    animate={{ opacity: active ? 1 : 0, scale: active ? 1 : 0.4 }}
+                    animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.4 }}
                     transition={{
                       duration: 0.45,
                       ease: EASE,
-                      delay: active ? i * 0.035 + 0.08 : 0,
+                      delay: isActive ? i * 0.035 + 0.08 : 0,
                     }}>
                     <Icon
                       style={{ color: item.color }}
@@ -143,7 +152,7 @@ export default function StackMarquee() {
         <motion.p
           className='mt-3 text-xs text-neutral-500'
           initial={false}
-          animate={{ opacity: active ? 0 : 1 }}
+          animate={{ opacity: isActive ? 0 : 1 }}
           transition={{ duration: 0.3, ease: EASE }}>
           Hover to explore the stack
         </motion.p>
