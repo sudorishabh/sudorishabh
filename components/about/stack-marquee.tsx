@@ -34,7 +34,7 @@ import { EASE } from "@/lib/motion";
   Math.random() would both reshuffle on every render and disagree between the
   server and client passes. Six sit either side of centre with near-identical
   mean spread (-183 / +177), and no two are closer than ~102px, which leaves
-  a 60px+ gap between any two 40px chips.
+  a 45px+ gap between any two 56px chips.
 */
 
 type TechIcon = {
@@ -59,18 +59,18 @@ function useMounted() {
 }
 
 const icons: TechIcon[] = [
-  { name: "TypeScript", icon: SiTypescript, color: "#3178C6", x: -90, y: -95, size: 19, delay: 0.06 },
-  { name: "React", icon: SiReact, color: "#61DAFB", x: 95, y: -85, size: 20, delay: 0.02 },
-  { name: "Next.js", icon: SiNextdotjs, color: "#EDEDED", x: -215, y: -140, size: 19, delay: 0.15 },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38BDF8", x: 200, y: -150, size: 20, delay: 0.1 },
-  { name: "Node.js", icon: SiNodedotjs, color: "#339933", x: -330, y: -105, size: 18, delay: 0.24 },
-  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", x: 335, y: -120, size: 18, delay: 0.2 },
-  { name: "Prisma", icon: SiPrisma, color: "#F0F0F0", x: -140, y: -230, size: 19, delay: 0.12 },
-  { name: "tRPC", icon: SiTrpc, color: "#398CCB", x: 125, y: -235, size: 19, delay: 0.27 },
-  { name: "Framer Motion", icon: SiFramer, color: "#0055FF", x: -270, y: -250, size: 18, delay: 0.18 },
-  { name: "Docker", icon: SiDocker, color: "#2496ED", x: 255, y: -265, size: 18, delay: 0.08 },
-  { name: "AWS", icon: FaAws, color: "#FF9900", x: -55, y: -300, size: 19, delay: 0.22 },
-  { name: "Vercel", icon: SiVercel, color: "#F0F0F0", x: 50, y: -305, size: 19, delay: 0.3 },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6", x: -90, y: -95, size: 26, delay: 0.06 },
+  { name: "React", icon: SiReact, color: "#61DAFB", x: 95, y: -85, size: 27, delay: 0.02 },
+  { name: "Next.js", icon: SiNextdotjs, color: "#EDEDED", x: -215, y: -140, size: 26, delay: 0.15 },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38BDF8", x: 200, y: -150, size: 27, delay: 0.1 },
+  { name: "Node.js", icon: SiNodedotjs, color: "#339933", x: -330, y: -105, size: 25, delay: 0.24 },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1", x: 335, y: -120, size: 25, delay: 0.2 },
+  { name: "Prisma", icon: SiPrisma, color: "#F0F0F0", x: -140, y: -230, size: 26, delay: 0.12 },
+  { name: "tRPC", icon: SiTrpc, color: "#398CCB", x: 125, y: -235, size: 26, delay: 0.27 },
+  { name: "Framer Motion", icon: SiFramer, color: "#0055FF", x: -270, y: -250, size: 25, delay: 0.18 },
+  { name: "Docker", icon: SiDocker, color: "#2496ED", x: 255, y: -265, size: 25, delay: 0.08 },
+  { name: "AWS", icon: FaAws, color: "#FF9900", x: -55, y: -300, size: 26, delay: 0.22 },
+  { name: "Vercel", icon: SiVercel, color: "#F0F0F0", x: 50, y: -305, size: 26, delay: 0.3 },
 ];
 
 export default function StackMarquee() {
@@ -141,7 +141,7 @@ export default function StackMarquee() {
               initial={false}
               animate={{
                 backgroundColor: isActive
-                  ? "rgba(0,0,0,0.22)"
+                  ? "rgba(0,0,0,0.55)"
                   : "rgba(0,0,0,0)",
               }}
               transition={{ duration: 0.5, ease: EASE }}
@@ -169,7 +169,7 @@ export default function StackMarquee() {
                     }}>
                     <div style={{ transform: "translate(-50%, -50%)" }}>
                       <motion.div
-                        className='grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.08] shadow-lg shadow-black/30 backdrop-blur-md'
+                        className='grid size-14 place-items-center rounded-full border border-white/10 bg-white/[0.08] shadow-lg shadow-black/30 backdrop-blur-md'
                         initial={false}
                         animate={{
                           opacity: isActive ? 1 : 0,
