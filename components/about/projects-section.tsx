@@ -50,7 +50,7 @@ function ProjectRow({ project }: { project: Project }) {
   return (
     <div
       className={cn(
-        "group relative rounded-lg px-3 py-4 first:pt-0 last:pb-0",
+        "group relative rounded-lg px-3 py-4",
         "transition-colors duration-300",
         "hover:bg-white/[0.03] focus-within:bg-white/[0.03]",
       )}>
@@ -86,6 +86,7 @@ function ProjectRow({ project }: { project: Project }) {
             "size-3.5 shrink-0 text-neutral-600",
             "transition-[color,transform] duration-300",
             "group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-white",
+            "motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0",
             project.featured ? "mt-2" : "mt-0.5",
           )}
         />
@@ -126,9 +127,17 @@ export default function ProjectSection() {
         whileInView='show'
         viewport={viewport}
         variants={fadeInUp}>
+        {/*
+          Spotlight off, unlike the contact pane. Every row here is a link, so
+          the row wash is the affordance -- it says which project you are about
+          to open. A pointer-tracked blob on top of it gives the same surface a
+          second, differently shaped hover state and softens the row boundary.
+          The contact pane can keep its spotlight because its rows have no fill.
+        */}
         <GlassSurface
           density='thick'
-          className='mt-7 rounded-2xl p-6 md:p-8'>
+          spotlight={false}
+          className='mt-7 rounded-2xl px-6 py-4 md:px-8 md:py-6'>
           {/* Negative inset so the dividers and the hover wash share one width. */}
           <motion.ul
             className='-mx-3 divide-y divide-white/[0.07]'

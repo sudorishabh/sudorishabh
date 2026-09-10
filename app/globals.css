@@ -171,9 +171,9 @@ html {
 
 @layer components {
   /* Layered on purpose: unlayered rules outrank every Tailwind utility, and
-     `.glass`'s border shorthand would then beat `hover:border-white/25` on
-     the cards. In the components layer, utilities win -- which is what a
-     caller reaching for a utility expects. */
+     `.glass`'s border shorthand would then beat any `hover:border-*` a
+     caller puts on a surface. In the components layer, utilities win --
+     which is what a caller reaching for a utility expects. */
   /* ---------------------------------------------------------------------------
      Glass
      ---------------------------------------------------------------------------
