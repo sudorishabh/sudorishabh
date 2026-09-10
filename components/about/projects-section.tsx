@@ -119,7 +119,7 @@ function ProjectCard({ project }: { project: Project }) {
                   instrumentSerif.className,
                   "text-xl tracking-[-0.01em] text-neutral-50 md:text-2xl",
                 )
-              : "text-sm font-medium text-neutral-100",
+              : "text-base font-medium text-neutral-100",
           )}>
           <a
             href={project.href}
@@ -139,11 +139,12 @@ function ProjectCard({ project }: { project: Project }) {
           </a>
         </h3>
 
-        <p
-          className={cn(
-            "max-w-[56ch] leading-relaxed text-neutral-400",
-            project.featured ? "mt-2 text-sm" : "mt-1.5 text-xs",
-          )}>
+        {/*
+          One blurb size for both card kinds. The small cards used to run
+          14/12/11px for name, blurb and tags -- three steps inside a 3px
+          range, which gave the eye no entry point. They now read 16/14/11.
+        */}
+        <p className='mt-2 max-w-[56ch] text-sm leading-relaxed text-neutral-400'>
           {project.blurb}
         </p>
 
