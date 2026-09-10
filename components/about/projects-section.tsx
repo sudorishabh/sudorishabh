@@ -1,8 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowUpRight, FolderGit2 } from "lucide-react";
 import { motion } from "framer-motion";
+import ProjectGallery, {
+  type GalleryImage,
+} from "@/components/about/project-gallery";
 import SectionHeading from "@/components/about/section-heading";
 import { GlassSurface } from "@/components/ui/glass";
 import { instrumentSerif } from "@/lib/fonts";
@@ -14,15 +16,15 @@ type Project = {
   blurb: string;
   tags: string[];
   href: string;
-  /**
-   * A wide UI screenshot, shown above the name. Meant for the lead row only:
-   * one image is a focal point, three inside glass over a photographic
-   * backdrop is a competition none of them win.
-   */
-  image?: { src: string; alt: string };
+  /** Wide UI screenshots, shown above the name as a swipeable strip. */
+  images?: GalleryImage[];
   /** The lead project sits first and carries the larger name. */
   featured?: boolean;
 };
+
+/** Placeholder source, matching pics-section. Drop when real captures land. */
+const SEED = (name: string) =>
+  `https://picsum.photos/seed/sudorishabh-${name}/1200/675`;
 
 const projects: Project[] = [
   {
@@ -31,11 +33,18 @@ const projects: Project[] = [
       "This site. Next.js and Tailwind over a live gradient field, with a glass layer that refracts it.",
     tags: ["Next.js", "Tailwind", "CSS"],
     href: "https://github.com/sudorishabh",
-    // Placeholder, as in pics-section. Swap for a real 16:9 capture.
-    image: {
-      src: "https://picsum.photos/seed/sudorishabh-site/1200/675",
-      alt: "The sudorishabh.com home page",
-    },
+    // Placeholders, as in pics-section. Swap for real 16:9 captures.
+    images: [
+      { src: SEED("site-home"), alt: "The sudorishabh.com home page" },
+      {
+        src: SEED("site-about"),
+        alt: "The about page over its photo backdrop",
+      },
+      {
+        src: SEED("site-glass"),
+        alt: "A glass panel refracting the gradient field",
+      },
+    ],
     featured: true,
   },
   {
@@ -43,12 +52,17 @@ const projects: Project[] = [
     blurb: "Small tools built fast, kept only if they earn their place.",
     tags: ["TypeScript", "Node"],
     href: "https://github.com/sudorishabh",
+    images: [
+      { src: SEED("tools-one"), alt: "Placeholder screenshot" },
+      { src: SEED("tools-two"), alt: "Placeholder screenshot" },
+    ],
   },
   {
     name: "Open source",
     blurb: "Patches, tiny libraries, and the occasional issue triage.",
     tags: ["OSS"],
     href: "https://github.com/sudorishabh",
+    images: [{ src: SEED("oss-one"), alt: "Placeholder screenshot" }],
   },
 ];
 
@@ -66,66 +80,52 @@ function ProjectRow({ project }: { project: Project }) {
         "transition-colors duration-300",
         "hover:bg-white/[0.03] focus-within:bg-white/[0.03]",
       )}>
-      {project.image && (
-        /*
-          Framed and held back so the screenshot reads as sitting *inside* the
-          pane: a hairline ring for thickness, a scrim at the foot to seat it
-          against the row below, and muted colour at rest that comes up to
-          full when the row is hovered. At full strength it competes with the
-          photograph behind the page.
-        */
-        <div className='relative mb-4 aspect-video overflow-hidden rounded-xl ring-1 ring-white/10'>
-          <Image
-            src={project.image.src}
-            alt={project.image.alt}
-            fill
+      {project.images && (
+        <div className='mb-4'>
+          <ProjectGallery
+            images={project.images}
+            label={project.name}
             sizes='(min-width: 768px) 672px, 100vw'
-            className='object-cover opacity-90 saturate-[0.85] transition-[opacity,filter] duration-500 group-hover:opacity-100 group-hover:saturate-100'
-          />
-          <span
-            aria-hidden='true'
-            className='absolute inset-0 bg-linear-to-t from-neutral-950/40 to-transparent to-60%'
           />
         </div>
       )}
 
-      <div className='flex items-start justify-between gap-4'>
-        <h3
-          className={cn(
-            /*
-              The lead project differs in kind, not degree: it is this site,
-              so it gets the serif the section heading and the contact lead
-              line already use. A size bump alone read as an accident.
-            */
-            project.featured
-              ? cn(
-                  instrumentSerif.className,
-                  "text-xl tracking-[-0.01em] text-neutral-50 md:text-2xl",
-                )
-              : "text-sm font-medium text-neutral-100",
-          )}>
-          {/*
-            Stretched link: the whole row is the hit target, but only the name
-            is the accessible link name.
-          */}
-          <a
-            href={project.href}
-            target='_blank'
-            rel='noreferrer'
-            className='rounded-sm after:absolute after:inset-0 after:content-[""] focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none'>
-            {project.name}
-          </a>
-        </h3>
-        <ArrowUpRight
-          className={cn(
-            "size-3.5 shrink-0 text-neutral-600",
-            "transition-[color,transform] duration-300",
-            "group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-white",
-            "motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0",
-            project.featured ? "mt-2" : "mt-0.5",
-          )}
-        />
-      </div>
+      {/*
+        The name is the link, not the whole card. The gallery above it takes
+        swipes and dot presses, and a stretched overlay would eat every one of
+        them; two interactive regions cannot share one box.
+      */}
+      <h3
+        className={cn(
+          /*
+            The lead project differs in kind, not degree: it is this site, so
+            it gets the serif the section heading and the contact lead line
+            already use. A size bump alone read as an accident.
+          */
+          project.featured
+            ? cn(
+                instrumentSerif.className,
+                "text-xl tracking-[-0.01em] text-neutral-50 md:text-2xl",
+              )
+            : "text-sm font-medium text-neutral-100",
+        )}>
+        <a
+          href={project.href}
+          target='_blank'
+          rel='noreferrer'
+          className='group/link inline-flex items-baseline gap-1.5 rounded-sm focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none'>
+          {project.name}
+          <ArrowUpRight
+            className={cn(
+              "size-3.5 shrink-0 self-center text-neutral-500",
+              "transition-[color,transform] duration-300",
+              "group-hover/link:-translate-y-px group-hover/link:translate-x-px",
+              "group-hover/link:text-white",
+              "motion-reduce:group-hover/link:translate-x-0 motion-reduce:group-hover/link:translate-y-0",
+            )}
+          />
+        </a>
+      </h3>
 
       {/* Rows get the whole column, so the blurb is capped for readability. */}
       <p
