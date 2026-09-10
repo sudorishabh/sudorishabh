@@ -1,71 +1,59 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/*
+  ---break---
+*/
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/*
-  The name is treated like a mis-registered print: two color plates (the
-  same rose/sky tones as the polaroids above) sit a hair off from the black
-  plate, screen-blended so they glow against the dark ground and snap into
-  register on load, like a print settling into alignment.
-*/
 .display-name {
-  position: relative;
-  isolation: isolate;
   font-family: var(--font-display);
-  font-variation-settings:
-    "opsz" 144,
-    "SOFT" 30,
-    "WONK" 1;
-  font-weight: 620;
+  font-weight: 400;
   color: #fafaf9;
-}
-
-.display-name::before,
-.display-name::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  font: inherit;
-  font-variation-settings: inherit;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  animation: name-settle 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.1s;
-}
-
-.display-name::before {
-  --gx: -0.05em;
-  --gy: 0.035em;
-  color: #fb7185;
-}
-
-.display-name::after {
-  --gx: 0.055em;
-  --gy: -0.03em;
-  color: #38bdf8;
-}
-
-@keyframes name-settle {
-  from {
-    transform: translate3d(calc(var(--gx) * 5), calc(var(--gy) * 5), 0);
-    opacity: 0;
-  }
-  to {
-    transform: translate3d(var(--gx), var(--gy), 0);
-    opacity: 0.85;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .display-name::before,
-  .display-name::after {
-    animation: none;
-    opacity: 0.85;
-    transform: translate3d(var(--gx), var(--gy), 0);
-  }
 }
 
 @keyframes marquee {
@@ -186,5 +174,186 @@
   100% {
     filter: hue-rotate(-6deg) saturate(90%);
     opacity: calc(var(--opacity) * 0.65);
+  }
+}
+
+/*
+  Every nav target on the site is a hash on this one page, so anchor jumps
+  glide instead of teleporting -- except for readers who asked for less
+  motion, who get the instant jump back.
+*/
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer components {
+  /* Layered on purpose: unlayered rules outrank every Tailwind utility, and
+     `.glass`'s border shorthand would then beat `hover:border-white/25` on
+     the cards. In the components layer, utilities win -- which is what a
+     caller reaching for a utility expects. */
+  /* ---------------------------------------------------------------------------
+     Glass
+     ---------------------------------------------------------------------------
+     One recipe, three densities. Every glass surface on the site is the same
+     four things stacked in the same order, so panels read as one material:
+
+       1. a near-transparent vertical tint (lighter at the top, as if lit)
+       2. a blur that also lifts saturation, so the ambient washes behind the
+          page bleed colour through the pane instead of turning it grey
+       3. a hairline border plus an inset top highlight -- the specular edge is
+          what sells the thickness
+       4. optional grain and a pointer-tracked sheen
+
+     Only the tint and blur change between densities. Never raise the tint alone
+     to make a panel more visible; on this dark ground that just looks like flat
+     grey plastic. Raise the blur with it.
+
+     Note the division of labour between the three decorations: there are only
+     two pseudo-elements per box, so the specular edge is a *background layer*
+     (--glass-sheen), grain owns ::before, and the sheen owns ::after. Adding a
+     fourth decoration means finding it a background layer, not a third pseudo.
+  --------------------------------------------------------------------------- */
+  .glass {
+    --glass-tint: 0.055;
+    --glass-blur: 20px;
+
+    position: relative;
+    /* Own stacking context, so decoration can sit at z-index -1: painted after
+       the pane's own background, before its content. */
+    isolation: isolate;
+
+    background-color: transparent;
+    background-image:
+      var(--glass-sheen, none),
+      linear-gradient(
+        180deg,
+        rgb(255 255 255 / calc(var(--glass-tint) * 1.6)),
+        rgb(255 255 255 / var(--glass-tint))
+      );
+    background-repeat: no-repeat, no-repeat;
+    background-position:
+      top center,
+      0 0;
+    background-size:
+      76% 1px,
+      auto;
+
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.14),
+      inset 0 -1px 0 0 rgb(255 255 255 / 0.04),
+      0 24px 60px -30px rgb(0 0 0 / 0.95);
+  }
+
+  /* Thin: floating chrome (nav, pills, chips) that must not muddy what's under it. */
+  .glass-thin {
+    --glass-tint: 0.04;
+    --glass-blur: 14px;
+  }
+
+  /* Thick: large reading panels, where the blur has to do real separation work. */
+  .glass-thick {
+    --glass-tint: 0.07;
+    --glass-blur: 32px;
+  }
+
+  /*
+    The specular edge: a bright arc across the top lip that fades out by the
+    shoulders. It has to fade horizontally, which a border cannot do -- a border
+    is one solid colour the whole way round -- so it rides in as the first
+    background layer, inset by the 1px border into the padding box.
+  */
+  .glass-edge {
+    --glass-sheen: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.45),
+      transparent
+    );
+  }
+
+  /*
+    Fine grain over the glass. Without it the blur is too clean, and large panels
+    band visibly where the gradient behind them shifts; the noise dithers it.
+  */
+  .glass-grain::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /*
+    Pointer-tracked sheen. <GlassSurface> writes --mx/--my as percentages of the
+    element box; the overlay is inert until hover, so the highlight fades in from
+    wherever the cursor entered rather than snapping into place. Without a
+    GlassSurface to feed it coordinates this degrades to a centred glow, which is
+    a fine hover state for a lone button.
+  */
+  .glass-spotlight::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 400ms ease;
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(255 255 255 / 0.1),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .glass-spotlight:hover::after,
+  .glass-spotlight:focus-within::after {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Entrance
+   ---------------------------------------------------------------------------
+   Sections lift in once on load, staggered by --reveal-delay. Deliberately
+   CSS-only: an IntersectionObserver would make every section a client
+   component for an effect that only ever fires above the fold anyway.
+--------------------------------------------------------------------------- */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-reveal {
+  animation: reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-reveal {
+    animation: none;
+  }
+
+  .glass-spotlight::after {
+    transition: none;
   }
 }

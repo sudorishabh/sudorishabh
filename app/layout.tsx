@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Instrument_Sans } from "next/font/google";
+import { Instrument_Sans, Instrument_Serif, Geist } from "next/font/google";
 import "./globals.css";
-import BackgroundWaves from "./components/BgGradientEffect";
+import BackgroundWaves from "../components/BgGradientEffect";
+import { cn } from "@/lib/utils";
 
-const display = Fraunces({
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const display = Instrument_Serif({
   subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
-  variable: "--font-fraunces",
+  weight: "400",
+  variable: "--font-instrument-serif",
   display: "swap",
 });
 
@@ -27,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' className={cn("font-sans", geist.variable)}>
       <body
         className={`${display.variable} ${sans.variable} font-sans antialiased bg-neutral-950 text-neutral-100`}>
         <BackgroundWaves />

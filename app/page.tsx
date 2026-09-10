@@ -1,11 +1,24 @@
-import NameTitle from "./components/NameTitle";
-import PicsSection from "./components/PicsSection";
+"use client";
+import LiquidGlass from "liquid-glass-react";
+import React, { useRef } from "react";
 
-export default function Home() {
+function App() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <main className='min-h-screen'>
-      <PicsSection />
-      <NameTitle />
-    </main>
+    <div
+      ref={containerRef}
+      className='w-full h-screen bg-image'>
+      <LiquidGlass
+        mouseContainer={containerRef}
+        elasticity={0.3}
+        style={{ position: "fixed", top: "50%", left: "50%" }}>
+        <div className='p-6'>
+          <h2>Glass responds to mouse anywhere in the container</h2>
+        </div>
+      </LiquidGlass>
+    </div>
   );
 }
+
+export default App;
