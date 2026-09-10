@@ -8,11 +8,18 @@ export default function SiteNav() {
       <nav
         aria-label='Main'
         className='flex max-w-full items-center justify-between gap-2'>
+        {/*
+          Visible at every width. Hiding it below `sm` left `justify-between`
+          with a single child, which pinned the social pill to the *left* on
+          phones and the right everywhere else -- the nav appeared to swap
+          sides across the breakpoint. At three links the two pills together
+          are ~280px, so both fit even on a 320px viewport.
+        */}
         <a
           href='#top'
           className={glass(
             { density: "thin", grain: false },
-            "animate-reveal items-center  rounded-full py-1.5 px-4 hidden text-lg font-medium tracking-tight text-neutral-200 transition-colors hover:text-white sm:block",
+            "animate-reveal rounded-full px-4 py-1.5 text-lg font-medium tracking-tight text-neutral-200 transition-colors hover:text-white",
           )}>
           Sudo
           <span className='text-neutral-500'>Rishabh</span>
