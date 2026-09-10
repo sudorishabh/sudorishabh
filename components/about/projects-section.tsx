@@ -152,7 +152,7 @@ function ProjectCard({ project }: { project: Project }) {
           Pushed to the foot of the card so the stack lines up across the two
           columns however long the blurbs above it run.
         */}
-        <p className='mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-4 text-[11px] text-neutral-500'>
+        <p className='mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-4 text-[11px] text-neutral-400'>
           {project.tags.map((tag) => (
             <span key={tag}>{tag}</span>
           ))}
