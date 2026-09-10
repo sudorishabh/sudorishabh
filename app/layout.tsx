@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Sans, Instrument_Serif, Geist } from "next/font/google";
 import "./globals.css";
 import BackgroundWaves from "../components/BgGradientEffect";
+import MotionProvider from "@/components/ui/motion-provider";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -34,7 +35,7 @@ export default function RootLayout({
       <body
         className={`${display.variable} ${sans.variable} font-sans antialiased bg-neutral-950 text-neutral-100`}>
         <BackgroundWaves />
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );
