@@ -42,7 +42,8 @@ export default function PicsSection() {
         onClick={() => setPinned((v) => !v)}
         whileTap={{ scale: 0.97 }}
         className={cn(
-          "relative flex h-44 w-full max-w-md cursor-pointer items-center focus-visible:outline-none md:h-52",
+          "relative flex h-44 w-full max-w-md cursor-pointer items-center rounded-3xl md:h-52",
+          "focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none",
           open ? "justify-between" : "justify-center",
         )}>
         {photos.map((photo, i) => {

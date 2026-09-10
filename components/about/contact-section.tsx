@@ -54,7 +54,7 @@ export default function ContactSection() {
                     link.href.startsWith("mailto:") ? undefined : "_blank"
                   }
                   rel='noreferrer'
-                  className='group flex items-center gap-4 py-3.5 transition-colors duration-300 focus-visible:outline-none'>
+                  className='group flex items-center gap-4 rounded-lg py-3.5 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none'>
                   <span className='size-4 shrink-0 text-neutral-500 transition-colors duration-300 group-hover:text-white group-focus-visible:text-white'>
                     {link.icon}
                   </span>
