@@ -1,7 +1,11 @@
+"use client";
+
 import { BriefcaseBusiness } from "lucide-react";
+import { motion } from "framer-motion";
 import SectionHeading from "@/components/about/section-heading";
 import { GlassSurface } from "@/components/ui/glass";
 import { glass } from "@/lib/glass";
+import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 const experience = [
   {
@@ -43,7 +47,12 @@ export default function ExperienceSection() {
       <GlassSurface
         density='thick'
         className='mt-7 rounded-2xl p-6 md:p-8'>
-        <ol className='relative space-y-7'>
+        <motion.ol
+          className='relative space-y-7'
+          initial='hidden'
+          whileInView='show'
+          viewport={viewport}
+          variants={staggerContainer}>
           {/* The spine, faded at both ends so it doesn't butt into the padding. */}
           <span
             aria-hidden='true'
@@ -51,8 +60,9 @@ export default function ExperienceSection() {
           />
 
           {experience.map((item, i) => (
-            <li
+            <motion.li
               key={item.role}
+              variants={staggerItem}
               className='relative pl-7'>
               <span
                 aria-hidden='true'
@@ -82,9 +92,9 @@ export default function ExperienceSection() {
               <p className='mt-2 text-sm leading-relaxed text-neutral-400'>
                 {item.detail}
               </p>
-            </li>
+            </motion.li>
           ))}
-        </ol>
+        </motion.ol>
       </GlassSurface>
     </section>
   );

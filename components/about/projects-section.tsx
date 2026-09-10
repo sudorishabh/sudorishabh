@@ -1,6 +1,10 @@
+"use client";
+
 import { ArrowUpRight, FolderGit2 } from "lucide-react";
+import { motion } from "framer-motion";
 import SectionHeading from "@/components/about/section-heading";
 import { GlassSurface } from "@/components/ui/glass";
+import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type Project = {
@@ -126,15 +130,21 @@ export default function ProjectSection() {
         title='What I build'
       />
 
-      <ul className='mt-7 grid gap-4 sm:grid-cols-2'>
+      <motion.ul
+        className='mt-7 grid gap-4 sm:grid-cols-2'
+        initial='hidden'
+        whileInView='show'
+        viewport={viewport}
+        variants={staggerContainer}>
         {projects.map((project) => (
-          <li
+          <motion.li
             key={project.name}
+            variants={staggerItem}
             className={cn(project.featured && "sm:col-span-2")}>
             <ProjectCard project={project} />
-          </li>
+          </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     </section>
   );
 }

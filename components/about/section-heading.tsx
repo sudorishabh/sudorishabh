@@ -1,5 +1,9 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 import { instrumentSerif } from "@/lib/fonts";
+import { fadeInUp, viewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /*
@@ -16,7 +20,12 @@ export default function SectionHeading({
   title: string;
 }) {
   return (
-    <div className='flex items-center gap-4'>
+    <motion.div
+      className='flex items-center gap-4'
+      initial='hidden'
+      whileInView='show'
+      viewport={viewport}
+      variants={fadeInUp}>
       <div>
         <p className='flex items-center gap-1.5 text-[10px] font-medium tracking-[0.16em] text-neutral-500 uppercase'>
           {icon}
@@ -36,6 +45,6 @@ export default function SectionHeading({
         aria-hidden='true'
         className='mt-6 h-px flex-1 bg-linear-to-r from-white/15 to-transparent'
       />
-    </div>
+    </motion.div>
   );
 }
