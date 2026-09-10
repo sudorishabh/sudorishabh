@@ -46,7 +46,7 @@ export default function HeroSection() {
         call to action, so they stay as plain dotted text.
       */}
       <ul
-        className='animate-reveal mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[11px] text-neutral-500'
+        className='animate-reveal mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[11px] text-neutral-300'
         style={{ "--reveal-delay": "400ms" } as CSSProperties}>
         {facts.map((fact, i) => (
           <li
@@ -55,7 +55,7 @@ export default function HeroSection() {
             {i > 0 && (
               <span
                 aria-hidden='true'
-                className='size-0.5 rounded-full bg-neutral-700'
+                className='size-0.5 rounded-full bg-neutral-400'
               />
             )}
             <span className='inline-flex items-center gap-1.5'>

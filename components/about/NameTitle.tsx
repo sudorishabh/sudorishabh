@@ -34,7 +34,7 @@ export default function NameTitle() {
       </h1>
 
       <p
-        className='animate-reveal mt-5 max-w-md text-center text-sm leading-relaxed text-balance text-neutral-300 md:text-base'
+        className='animate-reveal mt-5 max-w-md text-center text-sm leading-relaxed text-balance text-neutral-200 md:text-base'
         style={{ "--reveal-delay": "240ms" } as CSSProperties}>
         Software engineer building things on the web — interfaces that stay
         fast, and the unglamorous half behind them.
