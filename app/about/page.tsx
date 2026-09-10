@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   match the hero's `scroll-mt-24`, so an anchor jump to #top lands where the
   page already rests.
 */
-const column = "mx-auto w-full max-w-3xl px-5 pt-24 md:pt-28";
+const column = "mx-auto w-full max-w-3xl px-5 pt-24 pb-24 md:pt-28";
 
 export default function AboutPage() {
   return (
@@ -37,14 +37,9 @@ export default function AboutPage() {
           <StackMarquee />
         </div>
 
-        <div className='pt-10'>
-          <ProjectSection />
-        </div>
-
+        <ProjectSection />
         <ExperienceSection />
         <ContactSection />
-
-        <div className='h-24' />
       </div>
     </main>
   );

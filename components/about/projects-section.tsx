@@ -165,7 +165,10 @@ export default function ProjectSection() {
   return (
     <section
       id='projects'
-      className='scroll-mt-28'>
+      /* Deliberately half the `pt-20` that experience and contact carry: the
+         stack marquee above is part of the hero cluster, not a section of its
+         own, so the full gap read as a hole. */
+      className='scroll-mt-28 pt-10'>
       <SectionHeading
         icon={<FolderGit2 className='size-3' />}
         label='Projects'
