@@ -30,7 +30,7 @@ export default function AboutPage() {
           <StackMarquee />
         </div>
 
-        <div className='pt-20'>
+        <div className='pt-10'>
           <ProjectSection />
         </div>
 
