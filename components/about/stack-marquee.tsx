@@ -78,29 +78,34 @@ export default function StackMarquee() {
   const mounted = useMounted();
   const [hovered, setHovered] = useState(false);
   const [pinned, setPinned] = useState(false);
-  const [anchor, setAnchor] = useState<{ x: number; y: number } | null>(null);
+  const [anchor, setAnchor] = useState({ x: 0, y: 0 });
   const reduceMotion = useReducedMotion();
   const isActive = hovered || pinned;
+
+  // Measured in the event handler rather than an effect, so the anchor lands
+  // in the same render that flips the reveal on. Waiting for an effect would
+  // mount the whole overlay already-open on the very first hover, skipping
+  // its transition.
+  const measure = () => {
+    const rect = buttonRef.current?.getBoundingClientRect();
+    if (rect) setAnchor({ x: rect.left + rect.width / 2, y: rect.top });
+  };
 
   useEffect(() => {
     if (!isActive) return;
 
-    const updateAnchor = () => {
-      const rect = buttonRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      setAnchor({ x: rect.left + rect.width / 2, y: rect.top });
-    };
-
-    updateAnchor();
-    window.addEventListener("scroll", updateAnchor, { passive: true });
-    window.addEventListener("resize", updateAnchor);
+    window.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
     return () => {
-      window.removeEventListener("scroll", updateAnchor);
-      window.removeEventListener("resize", updateAnchor);
+      window.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
     };
   }, [isActive]);
 
-  const open = () => setHovered(true);
+  const open = () => {
+    measure();
+    setHovered(true);
+  };
 
   const toggleForTouch = () => {
     // Touch devices report a click without a persistent hover state, so give
@@ -110,6 +115,7 @@ export default function StackMarquee() {
       typeof window !== "undefined" &&
       !window.matchMedia("(hover: hover)").matches
     ) {
+      measure();
       setPinned((value) => !value);
     }
   };
@@ -132,19 +138,21 @@ export default function StackMarquee() {
       </button>
 
       {mounted &&
-        anchor &&
         createPortal(
           <>
-            <motion.div
+            {/*
+              Plain CSS rather than framer-motion: this needs the -webkit-
+              prefixed backdrop-filter for Safari, and blur(0px) -> blur(8px)
+              interpolates more reliably as a straight CSS transition.
+            */}
+            <div
               aria-hidden='true'
-              className='pointer-events-none fixed inset-0 z-30'
-              initial={false}
-              animate={{
-                backgroundColor: isActive
-                  ? "rgba(0,0,0,0.55)"
-                  : "rgba(0,0,0,0)",
+              className='pointer-events-none fixed inset-0 z-30 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]'
+              style={{
+                backgroundColor: isActive ? "rgba(0,0,0,0.55)" : "rgba(0,0,0,0)",
+                backdropFilter: isActive ? "blur(8px)" : "blur(0px)",
+                WebkitBackdropFilter: isActive ? "blur(8px)" : "blur(0px)",
               }}
-              transition={{ duration: 0.5, ease: EASE }}
             />
 
             <div
