@@ -74,8 +74,8 @@ export const socialLinks: SocialLink[] = [
 ];
 
 /** In-page nav targets. Every route on the site is a hash on this one page. */
-export const navSections = [
-  { label: "Work", href: "#projects" },
-  { label: "Path", href: "#experience" },
-  { label: "Contact", href: "#contact" },
-];
+// export const navSections = [
+//   { label: "Work", href: "#projects" },
+//   { label: "Path", href: "#experience" },
+//   { label: "Contact", href: "#contact" },
+// ];

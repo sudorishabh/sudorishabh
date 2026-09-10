@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { ArrowDown, MapPin } from "lucide-react";
 import LiquidGlassLink from "@/components/about/liquid-glass-link";
 import NameTitle from "@/components/about/NameTitle";
-import PicsSection from "@/components/about/PicsSection";
+import PicsSection from "@/components/about/pics-section";
 import { glass } from "@/lib/glass";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +16,7 @@ export default function HeroSection() {
   return (
     <section
       id='top'
-      className='scroll-mt-24 pt-10 pb-14 md:pt-16 md:pb-20'>
+      className='scroll-mt-24'>
       <PicsSection />
       <NameTitle />
 

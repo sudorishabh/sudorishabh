@@ -19,7 +19,6 @@ export default function AboutPage() {
   return (
     <main className='relative z-10 min-h-dvh'>
       <PageBackground />
-
       <SiteNav />
 
       <div className={column}>
