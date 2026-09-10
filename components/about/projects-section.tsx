@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowUpRight, FolderGit2 } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/about/section-heading";
@@ -13,6 +14,12 @@ type Project = {
   blurb: string;
   tags: string[];
   href: string;
+  /**
+   * A wide UI screenshot, shown above the name. Meant for the lead row only:
+   * one image is a focal point, three inside glass over a photographic
+   * backdrop is a competition none of them win.
+   */
+  image?: { src: string; alt: string };
   /** The lead project sits first and carries the larger name. */
   featured?: boolean;
 };
@@ -24,6 +31,11 @@ const projects: Project[] = [
       "This site. Next.js and Tailwind over a live gradient field, with a glass layer that refracts it.",
     tags: ["Next.js", "Tailwind", "CSS"],
     href: "https://github.com/sudorishabh",
+    // Placeholder, as in pics-section. Swap for a real 16:9 capture.
+    image: {
+      src: "https://picsum.photos/seed/sudorishabh-site/1200/675",
+      alt: "The sudorishabh.com home page",
+    },
     featured: true,
   },
   {
@@ -54,6 +66,29 @@ function ProjectRow({ project }: { project: Project }) {
         "transition-colors duration-300",
         "hover:bg-white/[0.03] focus-within:bg-white/[0.03]",
       )}>
+      {project.image && (
+        /*
+          Framed and held back so the screenshot reads as sitting *inside* the
+          pane: a hairline ring for thickness, a scrim at the foot to seat it
+          against the row below, and muted colour at rest that comes up to
+          full when the row is hovered. At full strength it competes with the
+          photograph behind the page.
+        */
+        <div className='relative mb-4 aspect-video overflow-hidden rounded-xl ring-1 ring-white/10'>
+          <Image
+            src={project.image.src}
+            alt={project.image.alt}
+            fill
+            sizes='(min-width: 768px) 672px, 100vw'
+            className='object-cover opacity-90 saturate-[0.85] transition-[opacity,filter] duration-500 group-hover:opacity-100 group-hover:saturate-100'
+          />
+          <span
+            aria-hidden='true'
+            className='absolute inset-0 bg-linear-to-t from-neutral-950/40 to-transparent to-60%'
+          />
+        </div>
+      )}
+
       <div className='flex items-start justify-between gap-4'>
         <h3
           className={cn(
