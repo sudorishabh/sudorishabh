@@ -3,6 +3,7 @@
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/about/section-heading";
+import SectionScrim from "@/components/about/section-scrim";
 import { GlassSurface } from "@/components/ui/glass";
 import { socialLinks } from "@/lib/site";
 import { instrumentSerif } from "@/lib/fonts";
@@ -29,7 +30,11 @@ export default function ContactSection() {
   return (
     <section
       id='contact'
-      className='scroll-mt-28 pt-20'>
+      className='relative scroll-mt-28 pt-20'>
+      {/* Lightest of the three: the page should close on the painting, not
+          on a dark rectangle. */}
+      <SectionScrim opacity={0.22} />
+
       <SectionHeading
         icon={<Sparkles className='size-3' />}
         label='Contact'
@@ -41,8 +46,15 @@ export default function ContactSection() {
         whileInView='show'
         viewport={viewport}
         variants={fadeInUp}>
+        {/*
+          Same ground as a project card: the section scrim stays light here
+          so the painting can come back up *around* the pane, which leaves
+          the pane itself carrying the contrast for the address inside it.
+          Atmosphere outside, stable surface within.
+        */}
         <GlassSurface
           density='thick'
+          reading
           className='mt-7 overflow-hidden rounded-2xl p-6 md:p-8'>
           <p
             className={cn(

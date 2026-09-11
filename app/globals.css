@@ -199,6 +199,9 @@ html {
   .glass {
     --glass-tint: 0.055;
     --glass-blur: 20px;
+    /* Opaque base under the tint. Transparent by default: most surfaces here
+       are chrome, and chrome should let the page through. */
+    --glass-ground: transparent;
 
     position: relative;
     /* Own stacking context, so decoration can sit at z-index -1: painted after
@@ -212,13 +215,16 @@ html {
         180deg,
         rgb(255 255 255 / calc(var(--glass-tint) * 1.6)),
         rgb(255 255 255 / var(--glass-tint))
-      );
-    background-repeat: no-repeat, no-repeat;
+      ),
+      linear-gradient(0deg, var(--glass-ground), var(--glass-ground));
+    background-repeat: no-repeat, no-repeat, no-repeat;
     background-position:
       top center,
+      0 0,
       0 0;
     background-size:
       76% 1px,
+      auto,
       auto;
 
     backdrop-filter: blur(var(--glass-blur)) saturate(180%);
@@ -240,6 +246,22 @@ html {
   .glass-thick {
     --glass-tint: 0.07;
     --glass-blur: 32px;
+  }
+
+  /*
+    Reading surface. A pane holding two paragraphs has a different job from a
+    pill holding one word: the pill can afford to let the painting through,
+    the pane has to hold still behind body text. This lays a dark ground
+    *under* the white tint -- raising the tint instead would push the pane
+    toward the painting's brights, which is the opposite of what a reader
+    needs, and the note above already warns against it.
+
+    Composes with any density rather than setting its own blur: ground and
+    blur answer different questions, and a modifier that quietly overrode
+    `.glass-thick` would make the two impossible to reason about together.
+  */
+  .glass-reading {
+    --glass-ground: rgb(9 9 11 / 0.45);
   }
 
   /*

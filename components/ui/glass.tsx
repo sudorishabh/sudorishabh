@@ -22,6 +22,7 @@ export function GlassSurface({
   edge,
   grain,
   spotlight = true,
+  reading,
   className,
   ...props
 }: GlassSurfaceProps) {
@@ -44,7 +45,7 @@ export function GlassSurface({
   return (
     <div
       onPointerMove={handlePointerMove}
-      className={glass({ density, edge, grain, spotlight }, className)}
+      className={glass({ density, edge, grain, spotlight, reading }, className)}
       {...props}
     />
   );

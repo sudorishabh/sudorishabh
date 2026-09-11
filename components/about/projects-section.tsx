@@ -6,6 +6,7 @@ import ProjectGallery, {
   type GalleryImage,
 } from "@/components/about/project-gallery";
 import SectionHeading from "@/components/about/section-heading";
+import SectionScrim from "@/components/about/section-scrim";
 import { GlassSurface } from "@/components/ui/glass";
 import { instrumentSerif } from "@/lib/fonts";
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
@@ -106,6 +107,8 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <GlassSurface
+      density='thick'
+      reading
       className={cn(
         "group flex flex-col gap-4 rounded-2xl p-4 sm:flex-row sm:gap-6 sm:p-5",
         "transition-colors duration-500 hover:border-white/20",
@@ -173,10 +176,10 @@ function ProjectCard({ project }: { project: Project }) {
             <div
               key={fact.label}
               className='flex flex-col gap-0.5 sm:flex-row sm:gap-3'>
-              <dt className='w-16 shrink-0 pt-px text-[10px] font-medium tracking-[0.14em] text-neutral-500 uppercase'>
+              <dt className='w-16 shrink-0 pt-px text-[10px] font-medium tracking-[0.14em] text-neutral-400 uppercase'>
                 {fact.label}
               </dt>
-              <dd className='max-w-[62ch] text-[13px] leading-relaxed text-neutral-400'>
+              <dd className='max-w-[62ch] text-[13px] leading-relaxed text-neutral-300'>
                 {fact.value}
               </dd>
             </div>
@@ -200,7 +203,10 @@ export default function ProjectSection() {
       /* Held under the `pt-20` a later section would take: this one follows
          the hero directly, and the gap between an introduction and the work
          that backs it is the last place to spend vertical space. */
-      className='scroll-mt-28 pt-12 md:pt-16'>
+      className='relative scroll-mt-28 pt-12 md:pt-16'>
+      {/* The work is the one thing on the page that must never be squinted at. */}
+      <SectionScrim opacity={0.45} />
+
       <SectionHeading
         icon={<FolderGit2 className='size-3' />}
         label='Projects'

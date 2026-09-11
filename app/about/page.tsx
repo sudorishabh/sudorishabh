@@ -34,7 +34,9 @@ const column = "mx-auto w-full max-w-3xl px-5 pt-24 pb-24 md:pt-28";
 */
 export default function AboutPage() {
   return (
-    <main className='relative z-10 min-h-dvh'>
+    /* `overflow-x-clip` pays for the section scrims: they are 100vw wide off
+       a centred column, and 100vw counts the scrollbar gutter. */
+    <main className='relative z-10 min-h-dvh overflow-x-clip'>
       <PageBackground />
       <SiteNav />
 

@@ -21,6 +21,8 @@ export type GlassOptions = {
   grain?: boolean;
   /** Pointer-tracked highlight. Needs <GlassSurface> to feed it coordinates. */
   spotlight?: boolean;
+  /** Dark ground under the tint, for panes that carry paragraphs. */
+  reading?: boolean;
 };
 
 const densityClass: Record<GlassDensity, string> = {
@@ -36,6 +38,7 @@ export function glass(
     edge = true,
     grain = true,
     spotlight = false,
+    reading = false,
   }: GlassOptions = {},
   className?: string,
 ) {
@@ -45,6 +48,7 @@ export function glass(
     edge && "glass-edge",
     grain && "glass-grain",
     spotlight && "glass-spotlight",
+    reading && "glass-reading",
     className,
   );
 }

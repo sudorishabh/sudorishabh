@@ -1,4 +1,5 @@
 import { Layers } from "lucide-react";
+import SectionScrim from "@/components/about/section-scrim";
 import { glass } from "@/lib/glass";
 
 /*
@@ -28,7 +29,10 @@ export default function StackSection() {
   return (
     <section
       id='stack'
-      className='scroll-mt-28 pt-14 md:pt-20'>
+      className='relative scroll-mt-28 pt-14 md:pt-20'>
+      {/* The quietest band on the page: small type, and nothing to look at. */}
+      <SectionScrim opacity={0.58} />
+
       {/*
         The eyebrow alone, without the serif title its siblings carry: this
         is a supporting detail, not one of the page's arguments.
