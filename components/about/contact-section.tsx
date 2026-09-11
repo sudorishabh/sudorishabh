@@ -14,6 +14,17 @@ import { cn } from "@/lib/utils";
   than icon buttons. The nav already has the icon-only version -- repeating it
   here would say the same thing twice and give the page nowhere to land.
 */
+
+/*
+  Email leads here, whatever order the nav uses. The nav can afford to show
+  the profiles first; a section whose entire job is "how do I reach you"
+  cannot put the address third.
+*/
+const contactLinks = [
+  ...socialLinks.filter((link) => link.href.startsWith("mailto:")),
+  ...socialLinks.filter((link) => !link.href.startsWith("mailto:")),
+];
+
 export default function ContactSection() {
   return (
     <section
@@ -41,10 +52,16 @@ export default function ContactSection() {
             Got something worth building? I read everything that lands.
           </p>
 
+          {/*
+            Rows tint on hover rather than only recolouring their icon and
+            arrow -- at ~48px tall the whole row is the target, and nothing
+            said so. The tint stays at 0.03 because it sits on an already
+            thick pane; anything heavier turns the row into a second surface.
+          */}
           <motion.ul
             className='mt-7 divide-y divide-white/[0.07] border-t border-white/[0.07]'
             variants={staggerContainer}>
-            {socialLinks.map((link) => (
+            {contactLinks.map((link) => (
               <motion.li
                 key={link.label}
                 variants={staggerItem}>
@@ -54,17 +71,27 @@ export default function ContactSection() {
                     link.href.startsWith("mailto:") ? undefined : "_blank"
                   }
                   rel='noreferrer'
-                  className='group flex items-center gap-4 rounded-lg py-3.5 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none'>
-                  <span className='size-4 shrink-0 text-neutral-500 transition-colors duration-300 group-hover:text-white group-focus-visible:text-white'>
+                  className='group flex items-center gap-4 rounded-lg py-3.5 transition-colors duration-300 hover:bg-white/[0.03] focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none'>
+                  <span className='size-4 shrink-0 text-neutral-400 transition-colors duration-300 group-hover:text-white group-focus-visible:text-white'>
                     {link.icon}
                   </span>
-                  <span className='text-sm text-neutral-200'>
-                    {link.label}
+
+                  {/*
+                    Stacked on phones, one line from `sm` up. Side by side at
+                    320px the label and the address together overran the row,
+                    so the address -- the only part of it worth copying --
+                    was the half that got truncated.
+                  */}
+                  <span className='flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-3'>
+                    <span className='text-sm text-neutral-200'>
+                      {link.label}
+                    </span>
+                    <span className='truncate text-xs text-neutral-400'>
+                      {link.handle}
+                    </span>
                   </span>
-                  <span className='truncate text-xs text-neutral-500'>
-                    {link.handle}
-                  </span>
-                  <ArrowUpRight className='ml-auto size-3.5 shrink-0 text-neutral-500 transition-[color,transform] duration-300 group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-white group-focus-visible:text-white' />
+
+                  <ArrowUpRight className='ml-auto size-3.5 shrink-0 text-neutral-400 transition-[color,transform] duration-300 group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-white group-focus-visible:text-white motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0' />
                 </a>
               </motion.li>
             ))}
@@ -73,11 +100,11 @@ export default function ContactSection() {
       </motion.div>
 
       {/*
-        neutral-500, not 600: over this page's photo backdrop 600 sits near
-        2.5:1, under the 4.5:1 floor -- and the backdrop is lighter in places
-        than the flat ground these greys were picked against.
+        neutral-400, not 500: the page's greys were picked against a flat dark
+        ground, and this line sits at the bottom edge where the backdrop's own
+        fade is lightest.
       */}
-      <footer className='mt-10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-500'>
+      <footer className='mt-10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-400'>
         <span>© {new Date().getFullYear()} Rishabh Negi</span>
         <span>Built with Next.js — glass hand-rolled in CSS</span>
       </footer>
