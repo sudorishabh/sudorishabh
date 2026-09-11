@@ -32,7 +32,7 @@ export default function PicsSection() {
   return (
     <div
       className='animate-reveal mx-auto flex flex-col items-center'
-      style={{ "--reveal-delay": "160ms" } as CSSProperties}>
+      style={{ "--reveal-delay": "80ms" } as CSSProperties}>
       <motion.button
         type='button'
         aria-pressed={open}
@@ -41,8 +41,14 @@ export default function PicsSection() {
         onMouseLeave={() => setHovered(false)}
         onClick={() => setPinned((v) => !v)}
         whileTap={{ scale: 0.97 }}
+        /*
+          Sized down from 176/208px: above the name, the stack is the portrait
+          that introduces it, not a subject of its own. At its old height it
+          was the tallest thing in the hero and the first place the eye
+          stopped -- and it cost ~64px of the distance to the work.
+        */
         className={cn(
-          "relative flex h-44 w-full max-w-md cursor-pointer items-center rounded-3xl md:h-52",
+          "relative flex h-32 w-full max-w-sm cursor-pointer items-center rounded-3xl md:h-36 md:max-w-md",
           "focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none",
           open ? "justify-between" : "justify-center",
         )}>

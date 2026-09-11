@@ -33,11 +33,18 @@ export default function NameTitle() {
         Rishabh Negi
       </h1>
 
+      {/*
+        The positioning statement, and the one line on the page that has to
+        earn its place in ten seconds. It used to read "software engineer
+        building things on the web", which describes several million people.
+        Naming both halves of the work -- and where they end -- is the whole
+        point; the stack itself is the metadata row's job, not this line's.
+      */}
       <p
-        className='animate-reveal mt-5 max-w-md text-center text-sm leading-relaxed text-balance text-neutral-200 md:text-base'
+        className='animate-reveal mt-5 max-w-lg text-center text-base leading-relaxed text-balance text-neutral-200 md:text-lg'
         style={{ "--reveal-delay": "240ms" } as CSSProperties}>
-        Software engineer building things on the web — interfaces that stay
-        fast, and the unglamorous half behind them.
+        I build fast product interfaces and the systems behind them — from the
+        first pixel to the query plan.
       </p>
     </div>
   );
