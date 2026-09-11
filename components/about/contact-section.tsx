@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import SectionHeading from "@/components/about/section-heading";
 import SectionScrim from "@/components/about/section-scrim";
 import { GlassSurface } from "@/components/ui/glass";
-import { socialLinks } from "@/lib/site";
+import { socialLinks, type SocialLink } from "@/lib/site";
 import { instrumentSerif } from "@/lib/fonts";
 import { fadeInUp, staggerContainer, staggerItem, viewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -16,14 +16,22 @@ import { cn } from "@/lib/utils";
   here would say the same thing twice and give the page nowhere to land.
 */
 
+const isEmail = (link: SocialLink) => link.href.startsWith("mailto:");
+
 /*
-  Email leads here, whatever order the nav uses. The nav can afford to show
-  the profiles first; a section whose entire job is "how do I reach you"
-  cannot put the address third.
+  Email leads here, whatever order the nav uses, and it leads on weight as
+  well as position. The nav can afford to show the profiles first; a section
+  whose entire job is "how do I reach you" cannot put the address third, and
+  it cannot set all three at the same size either -- three identical rows
+  make the reader pick, which is a decision the page should have made for
+  them. A profile is where you go to check someone out; a reply is the thing
+  this page is actually asking for.
 */
 const contactLinks = [
-  ...socialLinks.filter((link) => link.href.startsWith("mailto:")),
-  ...socialLinks.filter((link) => !link.href.startsWith("mailto:")),
+  ...socialLinks.filter(isEmail).map((link) => ({ ...link, primary: true })),
+  ...socialLinks
+    .filter((link) => !isEmail(link))
+    .map((link) => ({ ...link, primary: false })),
 ];
 
 export default function ContactSection() {
@@ -79,12 +87,21 @@ export default function ContactSection() {
                 variants={staggerItem}>
                 <a
                   href={link.href}
-                  target={
-                    link.href.startsWith("mailto:") ? undefined : "_blank"
-                  }
+                  target={isEmail(link) ? undefined : "_blank"}
                   rel='noreferrer'
-                  className='group flex items-center gap-4 rounded-lg py-3.5 transition-colors duration-300 hover:bg-white/[0.03] focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none'>
-                  <span className='size-4 shrink-0 text-neutral-400 transition-colors duration-300 group-hover:text-white group-focus-visible:text-white'>
+                  className={cn(
+                    "group flex items-center gap-4 rounded-lg transition-colors duration-300",
+                    "hover:bg-white/[0.03] focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none",
+                    link.primary ? "py-4" : "py-3",
+                  )}>
+                  <span
+                    className={cn(
+                      "shrink-0 transition-colors duration-300",
+                      "group-hover:text-white group-focus-visible:text-white",
+                      link.primary
+                        ? "size-5 text-neutral-200"
+                        : "size-4 text-neutral-400",
+                    )}>
                     {link.icon}
                   </span>
 
@@ -95,15 +112,36 @@ export default function ContactSection() {
                     was the half that got truncated.
                   */}
                   <span className='flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-3'>
-                    <span className='text-sm text-neutral-200'>
+                    <span
+                      className={cn(
+                        link.primary
+                          ? "text-base font-medium text-neutral-50"
+                          : "text-sm text-neutral-300",
+                      )}>
                       {link.label}
                     </span>
-                    <span className='truncate text-xs text-neutral-400'>
+                    <span
+                      className={cn(
+                        "truncate",
+                        link.primary
+                          ? "text-sm text-neutral-300"
+                          : "text-xs text-neutral-400",
+                      )}>
                       {link.handle}
                     </span>
                   </span>
 
-                  <ArrowUpRight className='ml-auto size-3.5 shrink-0 text-neutral-400 transition-[color,transform] duration-300 group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-white group-focus-visible:text-white motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0' />
+                  <ArrowUpRight
+                    className={cn(
+                      "ml-auto shrink-0 transition-[color,transform] duration-300",
+                      "group-hover:-translate-y-px group-hover:translate-x-px",
+                      "group-hover:text-white group-focus-visible:text-white",
+                      "motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0",
+                      link.primary
+                        ? "size-4 text-neutral-300"
+                        : "size-3.5 text-neutral-400",
+                    )}
+                  />
                 </a>
               </motion.li>
             ))}
