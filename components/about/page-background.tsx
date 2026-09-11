@@ -46,8 +46,15 @@ export default function PageBackground({
       {/* Vignette: pulls the eye to the center column. */}
       <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,rgba(10,10,10,0.55)_100%)]' />
 
-      {/* One extra scrim below `md`, where there is no calm centre to sit in. */}
-      <div className='absolute inset-0 bg-neutral-950/25 md:hidden' />
+      {/*
+        One extra scrim below `md`, where there is no calm centre to sit in --
+        but a light one. It was 0.25 when it was the only thing protecting
+        small-screen text; now that each section carries its own scrim, that
+        much on top of them stacked to ~0.76 over the hero and took the
+        painting off the phone almost entirely. Quiet on mobile is the blur's
+        job, which costs no brightness.
+      */}
+      <div className='absolute inset-0 bg-neutral-950/10 md:hidden' />
     </div>
   );
 }
