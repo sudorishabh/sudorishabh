@@ -33,6 +33,14 @@ type Project = {
   images?: GalleryImage[];
   /** The lead project carries the serif name at a larger size. */
   featured?: boolean;
+  /*
+    Not ready to be read. A card whose Problem row says "TODO: name one" is
+    worse than no card: it reads as an unfinished thought on the one page
+    whose whole job is to show finished ones. Kept in the file rather than
+    deleted, because the shape is right and only the facts are missing --
+    fill in `problem` and `built`, drop this flag, and it ships.
+  */
+  draft?: boolean;
 };
 
 /** Placeholder source, matching pics-section. Drop when real captures land. */
@@ -40,10 +48,11 @@ const SEED = (name: string) =>
   `https://picsum.photos/seed/sudorishabh-${name}/1200/675`;
 
 /*
-  TODO: entries two and three are shape, not substance. They need what the
-  first one has -- a named thing, the specific part that was hard, and what
-  shipped. Until then they stay honest about being a category rather than
-  dressing up as case studies.
+  One project, deliberately. Entries two and three are shape without
+  substance -- they name a category ("Side experiments", "Open source")
+  rather than a thing that was built, and neither has the one detail that
+  makes a reader believe it. They stay `draft` until they do; three cards
+  where two are placeholders prove less than one that is real.
 */
 const projects: Project[] = [
   {
@@ -75,7 +84,7 @@ const projects: Project[] = [
     built: "TODO: what shipped, and what it bought.",
     tags: ["TypeScript", "Node"],
     href: "https://github.com/sudorishabh",
-    images: [{ src: SEED("tools-one"), alt: "Placeholder screenshot" }],
+    draft: true,
   },
   {
     name: "Open source",
@@ -84,8 +93,12 @@ const projects: Project[] = [
     built: "TODO: what landed, and where.",
     tags: ["OSS"],
     href: "https://github.com/sudorishabh",
+    draft: true,
   },
 ];
+
+/** What actually renders. Everything else is waiting on its facts. */
+const published = projects.filter((project) => !project.draft);
 
 /*
   One column of wide panes, not a two-up grid. The grid made the lead project
@@ -209,7 +222,7 @@ export default function ProjectSection() {
         whileInView='show'
         viewport={viewport}
         variants={staggerContainer}>
-        {projects.map((project) => (
+        {published.map((project) => (
           <motion.li
             key={project.name}
             variants={staggerItem}>
