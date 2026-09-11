@@ -203,7 +203,7 @@ export default function ProjectSection() {
       /* Held under the `pt-20` a later section would take: this one follows
          the hero directly, and the gap between an introduction and the work
          that backs it is the last place to spend vertical space. */
-      className='relative scroll-mt-28 pt-12 md:pt-16'>
+      className='relative scroll-mt-28 pt-10 md:pt-14'>
       {/* The work is the one thing on the page that must never be squinted at. */}
       <SectionScrim opacity={0.45} />
 
@@ -214,7 +214,7 @@ export default function ProjectSection() {
       />
 
       <motion.ul
-        className='mt-7 flex flex-col gap-4'
+        className='mt-6 flex flex-col gap-4'
         initial='hidden'
         whileInView='show'
         viewport={viewport}

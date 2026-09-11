@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <section
       id='top'
-      className='scroll-mt-24'>
+      className='scroll-mt-20'>
       <PicsSection />
       <NameTitle />
 
@@ -31,7 +31,7 @@ export default function HeroSection() {
         below, so they stay as plain dotted text.
       */}
       <ul
-        className='animate-reveal mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[11px] text-neutral-300'
+        className='animate-reveal mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[11px] text-neutral-300'
         style={{ "--reveal-delay": "320ms" } as CSSProperties}>
         {facts.map((fact, i) => (
           <li
@@ -52,7 +52,7 @@ export default function HeroSection() {
       </ul>
 
       <div
-        className='animate-reveal mt-8 flex flex-wrap items-center justify-center gap-3'
+        className='animate-reveal mt-7 flex flex-wrap items-center justify-center gap-3'
         style={{ "--reveal-delay": "400ms" } as CSSProperties}>
         {/*
           The page's only solid surface, and deliberately so: everything else

@@ -30,7 +30,7 @@ export default function ContactSection() {
   return (
     <section
       id='contact'
-      className='relative scroll-mt-28 pt-20'>
+      className='relative scroll-mt-28 pt-16'>
       {/* Lightest of the three: the page should close on the painting, not
           on a dark rectangle. */}
       <SectionScrim opacity={0.22} />
@@ -55,7 +55,7 @@ export default function ContactSection() {
         <GlassSurface
           density='thick'
           reading
-          className='mt-7 overflow-hidden rounded-2xl p-6 md:p-8'>
+          className='mt-6 overflow-hidden rounded-2xl p-6 md:p-8'>
           <p
             className={cn(
               instrumentSerif.className,
@@ -71,7 +71,7 @@ export default function ContactSection() {
             thick pane; anything heavier turns the row into a second surface.
           */}
           <motion.ul
-            className='mt-7 divide-y divide-white/[0.07] border-t border-white/[0.07]'
+            className='mt-6 divide-y divide-white/[0.07] border-t border-white/[0.07]'
             variants={staggerContainer}>
             {contactLinks.map((link) => (
               <motion.li
@@ -116,7 +116,7 @@ export default function ContactSection() {
         ground, and this line sits at the bottom edge where the backdrop's own
         fade is lightest.
       */}
-      <footer className='mt-10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-400'>
+      <footer className='mt-8 flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-400'>
         <span>© {new Date().getFullYear()} Rishabh Negi</span>
         <span>Built with Next.js — glass hand-rolled in CSS</span>
       </footer>

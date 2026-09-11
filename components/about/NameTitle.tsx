@@ -41,7 +41,7 @@ export default function NameTitle() {
         point; the stack itself is the metadata row's job, not this line's.
       */}
       <p
-        className='animate-reveal mt-5 max-w-lg text-center text-base leading-relaxed text-balance text-neutral-200 md:text-lg'
+        className='animate-reveal mt-4 max-w-lg text-center text-base leading-relaxed text-balance text-neutral-200 md:text-lg'
         style={{ "--reveal-delay": "240ms" } as CSSProperties}>
         I build fast product interfaces and the systems behind them — from the
         first pixel to the query plan.

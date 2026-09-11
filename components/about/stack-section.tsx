@@ -29,7 +29,7 @@ export default function StackSection() {
   return (
     <section
       id='stack'
-      className='relative scroll-mt-28 pt-14 md:pt-20'>
+      className='relative scroll-mt-28 pt-12 md:pt-16'>
       {/* The quietest band on the page: small type, and nothing to look at. */}
       <SectionScrim opacity={0.58} />
 

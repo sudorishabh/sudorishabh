@@ -14,11 +14,15 @@ export const metadata: Metadata = {
 /*
   Top padding clears the fixed nav (`site-nav.tsx`), whose pill bottoms out at
   ~60px, rising to ~68px once its own `md:pt-6` kicks in. Without it the photo
-  stack starts at y=0 and the nav sits on top of its first row. The values
-  match the hero's `scroll-mt-24`, so an anchor jump to #top lands where the
-  page already rests.
+  stack starts at y=0 and the nav sits on top of its first row. 80px leaves a
+  20px gap under the pill, which is clearance rather than composition -- the
+  old 96 was 36px of it. The value matches the hero's `scroll-mt-20`, so an
+  anchor jump to #top lands where the page already rests.
+
+  The foot needs less than the head: the footer already carries its own
+  `mt-8`, so `pb-24` was stacking two margins into 136px of nothing.
 */
-const column = "mx-auto w-full max-w-3xl px-5 pt-24 pb-24 md:pt-28";
+const column = "mx-auto w-full max-w-3xl px-5 pt-20 pb-16 md:pt-24";
 
 /*
   Hero straight into the work. There used to be a "Skills" pill between the
