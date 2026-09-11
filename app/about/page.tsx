@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
 import ContactSection from "@/components/about/contact-section";
-import ExperienceSection from "@/components/about/experience-section";
 import HeroSection from "@/components/about/hero-section";
 import PageBackground from "@/components/about/page-background";
 import ProjectSection from "@/components/about/projects-section";
 import SiteNav from "@/components/about/site-nav";
-import StackMarquee from "@/components/about/stack-marquee";
+import StackSection from "@/components/about/stack-section";
 
 export const metadata: Metadata = {
   title: "Rishabh Negi — Software engineer",
@@ -22,6 +20,18 @@ export const metadata: Metadata = {
 */
 const column = "mx-auto w-full max-w-3xl px-5 pt-24 pb-24 md:pt-28";
 
+/*
+  Hero straight into the work. There used to be a "Skills" pill between the
+  two, holding the hero cluster open by another ~100px before anything a
+  reader could evaluate arrived; the stack it stood for now sits below the
+  projects instead of delaying them.
+
+  `ExperienceSection` is deliberately not mounted: its three entries are
+  descriptions of skills ("Frontend & product", "Backend & infra") rather
+  than a history, so between the projects and the stack list it said a third
+  version of the same thing. It stays in the tree for when there are real
+  roles and dates to put in it.
+*/
 export default function AboutPage() {
   return (
     <main className='relative z-10 min-h-dvh'>
@@ -30,15 +40,8 @@ export default function AboutPage() {
 
       <div className={column}>
         <HeroSection />
-
-        <div
-          className='animate-reveal mt-12'
-          style={{ "--reveal-delay": "480ms" } as CSSProperties}>
-          <StackMarquee />
-        </div>
-
         <ProjectSection />
-        <ExperienceSection />
+        <StackSection />
         <ContactSection />
       </div>
     </main>
