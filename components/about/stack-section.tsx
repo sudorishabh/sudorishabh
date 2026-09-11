@@ -15,14 +15,20 @@ import { glass } from "@/lib/glass";
 
   It sits *below* the projects on purpose. A stack list is a claim; the work
   above it is the evidence, and claims go after evidence.
+
+  The groups are named for what they produce, not for where they sit in an
+  architecture diagram. "Front end / Back end / Infra" sorts tools by tier,
+  which is a fact about the tools; "Product interfaces / Systems / Shipping"
+  sorts them by what someone gets if they hire me, which is the only reading
+  that belongs on this page. Same twelve names, answering a better question.
 */
 const stack = [
   {
-    label: "Front end",
+    label: "Product interfaces",
     items: ["TypeScript", "React", "Next.js", "Tailwind", "Framer Motion"],
   },
-  { label: "Back end", items: ["Node", "PostgreSQL", "Prisma", "tRPC"] },
-  { label: "Infra", items: ["Docker", "AWS", "Vercel"] },
+  { label: "Systems", items: ["Node", "PostgreSQL", "Prisma", "tRPC"] },
+  { label: "Shipping", items: ["Docker", "AWS", "Vercel"] },
 ];
 
 export default function StackSection() {
@@ -50,11 +56,17 @@ export default function StackSection() {
         {stack.map((group) => (
           <div
             key={group.label}
-            className='flex flex-col gap-1 py-3.5 sm:flex-row sm:items-baseline sm:gap-6'>
-            <dt className='w-20 shrink-0 text-[10px] tracking-[0.14em] text-neutral-400 uppercase'>
+            className='flex flex-col gap-1.5 py-3.5 sm:flex-row sm:items-baseline sm:gap-6'>
+            {/*
+              The capability is the subject of the row and the tools are its
+              evidence, so the label leads on weight and colour. Inverted --
+              a dim 10px label beside sm-sized tool names -- the row read as
+              a list of keywords that happened to have a category on it.
+            */}
+            <dt className='w-36 shrink-0 text-[11px] font-medium tracking-[0.12em] text-neutral-100 uppercase'>
               {group.label}
             </dt>
-            <dd className='flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-neutral-200'>
+            <dd className='flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px] text-neutral-300'>
               {group.items.map((item, i) => (
                 <span
                   key={item}
