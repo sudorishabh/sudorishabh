@@ -2,9 +2,17 @@ import { glass } from "@/lib/glass";
 import { cn } from "@/lib/utils";
 import { socialLinks } from "@/lib/site";
 
+/*
+  Contrast, not chrome. The three profile links used to sit at neutral-400 --
+  which over this page's backdrop reads as a disabled control, so the only
+  thing telling you they were links was hovering one. They now sit at
+  neutral-300 with a slightly firmer pill edge, which is enough: an icon at
+  full legibility inside a visible container reads as a button without
+  needing a label, a divider, or a second surface.
+*/
 export default function SiteNav() {
   return (
-    <div className=' top-0 z-50 w-full fixed px-4 pt-4  md:pt-6'>
+    <div className='fixed top-0 z-50 w-full px-4 pt-4 md:pt-6'>
       <nav
         aria-label='Main'
         className='flex max-w-full items-center justify-between gap-2'>
@@ -19,10 +27,16 @@ export default function SiteNav() {
           href='#top'
           className={glass(
             { density: "thin", grain: false },
-            "animate-reveal rounded-full px-4 py-1.5 text-lg font-medium tracking-tight text-neutral-200 transition-colors hover:text-white",
+            cn(
+              "animate-reveal rounded-full border-white/15 px-4 py-1.5",
+              "text-lg font-medium tracking-tight text-neutral-100",
+              "transition-colors hover:text-white",
+              "focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none",
+            ),
           )}>
           Sudo
-          <span className='text-neutral-500'>Rishabh</span>
+          {/* Was neutral-500: the quiet half of a wordmark still has to be read. */}
+          <span className='text-neutral-400'>Rishabh</span>
         </a>
 
         {/*
@@ -37,19 +51,19 @@ export default function SiteNav() {
         <div
           className={glass(
             { density: "thin", grain: false },
-            "animate-reveal flex items-center gap-1 rounded-full p-1",
+            "animate-reveal flex items-center gap-1 rounded-full border-white/15 p-1",
           )}>
           {socialLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              target='_blank'
+              target={link.href.startsWith("mailto:") ? undefined : "_blank"}
               rel='noreferrer'
               aria-label={link.label}
               className={cn(
                 /* A 32px box gives the hover fill room to read as a circle;
                    with no padding it used to paint flush to the glyph edge. */
-                "grid size-8 place-items-center rounded-full text-neutral-400",
+                "grid size-8 place-items-center rounded-full text-neutral-300",
                 "transition-colors duration-300 hover:bg-white/10 hover:text-white",
                 "focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none",
               )}>
@@ -57,20 +71,6 @@ export default function SiteNav() {
             </a>
           ))}
         </div>
-
-        {/* {navSections.map((section) => (
-          <a
-            key={section.href}
-            href={section.href}
-            className='rounded-full px-3 py-1.5 text-xs text-neutral-400 transition-colors duration-300 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:outline-none'>
-            {section.label}
-          </a>
-        ))} */}
-
-        {/* <span
-          aria-hidden='true'
-          className='mx-1 h-4 w-px bg-white/10'
-        /> */}
       </nav>
     </div>
   );
