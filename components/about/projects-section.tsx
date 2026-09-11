@@ -29,7 +29,13 @@ type Project = {
   built: string;
   tags: string[];
   href: string;
-  /** Wide UI screenshots, shown beside the text as a swipe strip. */
+  /*
+    Wide UI screenshots, shown beside the text as a swipe strip. Optional,
+    and empty on purpose right now: the frames used to hold picsum.photos
+    output, which meant a card about a CSS glass recipe illustrated itself
+    with a stock photograph of Manhattan. An empty frame costs a reader
+    nothing; a decorative one costs the card its credibility.
+  */
   images?: GalleryImage[];
   /** The lead project carries the serif name at a larger size. */
   featured?: boolean;
@@ -42,10 +48,6 @@ type Project = {
   */
   draft?: boolean;
 };
-
-/** Placeholder source, matching pics-section. Drop when real captures land. */
-const SEED = (name: string) =>
-  `https://picsum.photos/seed/sudorishabh-${name}/1200/675`;
 
 /*
   One project, deliberately. Entries two and three are shape without
@@ -61,20 +63,9 @@ const projects: Project[] = [
     problem:
       "Translucent panels over a photograph lose their edges, and they band visibly wherever the image shifts behind them.",
     built:
-      "One CSS recipe in three densities: a lit vertical tint, a blur that lifts saturation so colour bleeds through instead of going grey, a specular top edge that fades at the shoulders, and grain to dither the banding. Every surface on the page is those four layers in that order, so no panel drifts out of sync with the rest.",
+      "One CSS recipe in three densities — a lit tint, a blur that lifts saturation so colour bleeds through instead of going grey, a specular edge that fades at the shoulders, and grain to dither the banding. Every surface on the page is those four layers in that order.",
     tags: ["Next.js", "Tailwind v4", "CSS", "Server Components"],
     href: "https://github.com/sudorishabh",
-    images: [
-      { src: SEED("site-home"), alt: "The sudorishabh.com home page" },
-      {
-        src: SEED("site-about"),
-        alt: "The about page over its photo backdrop",
-      },
-      {
-        src: SEED("site-glass"),
-        alt: "A glass panel refracting the gradient field",
-      },
-    ],
     featured: true,
   },
   {
