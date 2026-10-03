@@ -1,15 +1,10 @@
 # Hey, I'm Rishabh 👋
 
+AI Engineering ·  Full-Stack Development ·  Backend & System Design ·  Deployment & Cloud
+
 **Software Engineer building full-stack and AI-powered systems.**
 
-I work primarily with **TypeScript, Next.js, Python, FastAPI, databases, and LLM/RAG systems**.
-
-### 🚀 What I Build
-
-* 🤖 **AI & RAG** — LLM applications, semantic search, hybrid retrieval, knowledge graphs
-* ⚡ **Full-stack** — Next.js, React, TypeScript, Python
-* 🏗️ **Backend & Data** — FastAPI, PostgreSQL, MySQL, Qdrant, Neo4j
-* 🧩 **Engineering** — APIs, system architecture, testing, Docker, CI/CD
+I work primarily with **TypeScript, Next.js, Node.js, Python, FastAPI, databases, and LLM/RAG systems**.
 
 ### Featured Projects
 
@@ -21,7 +16,3 @@ Full-stack operations platform built with Next.js, TypeScript, tRPC, Drizzle, My
 
 **[Green Ports India](https://github.com/sudorishabh/Green-Port-India-Map)**
 Interactive geospatial platform for exploring Indian ports and sustainability data.
-
-### 🔗 Connect
-
-[GitHub](https://github.com/sudorishabh) · [X](https://x.com/sudorishabh)
